@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:export-ydpi="22.15"
+   inkscape:export-xdpi="22.15"
+   inkscape:export-filename="C:\github\dataflowg\g-image\images\g-image-logo.png"
+   sodipodi:docname="g-image-logo.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 343.95833 132.29167"
+   height="500"
+   width="1300">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="-8"
+     inkscape:window-height="1017"
+     inkscape:window-width="1920"
+     units="px"
+     showgrid="false"
+     inkscape:document-rotation="0"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="mm"
+     inkscape:cy="48.864992"
+     inkscape:cx="795.16116"
+     inkscape:zoom="0.49497475"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <rect
+       style="fill:#ffffff;stroke:none;stroke-width:0.253365"
+       id="rect843"
+       width="343.95834"
+       height="132.29167"
+       x="1.8530272e-07"
+       y="-4.5410155e-07"
+       rx="19.860098"
+       ry="18.469206" />
+    <g
+       transform="matrix(8.2859266,0,0,8.28553,-196.61439,-720.11351)"
+       id="g859">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="26.458334"
+         y="98.368309"
+         id="text12"><tspan
+           sodipodi:role="line"
+           id="tspan10"
+           x="26.458334"
+           y="98.368309"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script';fill:#ffcc00;fill-opacity:1;stroke-width:0.264583">G</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:7.53472px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.188368"
+         x="34.812569"
+         y="97.375008"
+         id="text839"><tspan
+           sodipodi:role="line"
+           id="tspan837"
+           x="34.812569"
+           y="97.375008"
+           style="stroke-width:0.188368">-Image</tspan></text>
+    </g>
+  </g>
+</svg>
