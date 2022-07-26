@@ -46,32 +46,32 @@ In addition to loading the formats below from a file, G-Image supports loading i
 
 Format          | G-Image             | LabVIEW Picture Functions
 ----------------|---------------------|--------------------
-PNG             | :heavy_check_mark:? | :heavy_check_mark:
+PNG             | :heavy_check_mark:¹ | :heavy_check_mark:
 JPEG            | :heavy_check_mark:  | :heavy_check_mark:
-BMP             | :heavy_check_mark:? | :heavy_check_mark:?
-GIF             | :heavy_check_mark:? | :x:
+BMP             | :heavy_check_mark:¹ | :heavy_check_mark:²
+GIF             | :heavy_check_mark:¹ | :x:
 TGA             | :heavy_check_mark:  | :x:
 
-? *Palettized images (8-bit and below) are supported, but are converted to 24-bit RGB or 32-bit RGBA images. This may change in future updates.*
+¹ *Palettized images (8-bit and below) are supported, but are converted to 24-bit RGB or 32-bit RGBA images. This may change in future updates.*
 
-? *32-bit images are unsupported.*
+² *32-bit images are unsupported.*
 
 ### Image Saving
 In addition to saving the formats below to a file, G-Image supports saving images directly in memory.
 
 Format          | G-Image             | LabVIEW Picture Functions
 ----------------|---------------------|--------------------
-PNG             | :heavy_check_mark:? | :heavy_check_mark:
+PNG             | :heavy_check_mark:¹ | :heavy_check_mark:
 JPEG            | :heavy_check_mark:  | :heavy_check_mark:
 BMP             | :heavy_check_mark:  | :heavy_check_mark:
-GIF             | :x:                 | :heavy_check_mark:?
-TGA             | :heavy_check_mark:? | :x:
+GIF             | :x:                 | :heavy_check_mark:³
+TGA             | :heavy_check_mark:² | :x:
 
-? *Images less than 8-bit are converted to 8-bit when saved.*
+¹ *Images less than 8-bit are converted to 8-bit when saved.*
 
-? *Images are saved with Run Length Encoding (RLE) compression.*
+² *Images are saved with Run Length Encoding (RLE) compression.*
 
-? *The GIF save function isn't in the palette, but can be found in `<vi.lib>\picture\gif.llb\Write GIF File.vi`*
+³ *The GIF save function isn't in the palette, but can be found in `<vi.lib>\picture\gif.llb\Write GIF File.vi`*
 
 ## <a id="license"></a>License
 This library is built using public domain image libraries. As such, this library is also made available in the public domain. See [LICENSE](LICENSE) for details.
