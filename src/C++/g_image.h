@@ -7,6 +7,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+#include "gif_load.h"
+
 #if defined( _WIN32 )
 #define __STDC_LIB_EXT1__
 #endif
@@ -48,10 +50,12 @@ typedef int32_t gi_result;
 typedef struct
 {
 	uint8_t* data;
-	uint32_t data_size;
-	uint32_t width;
-	uint32_t height;
-	uint32_t depth;
+	uint32_t* colors;
+	int32_t data_size;
+	int32_t color_size;
+	int32_t width;
+	int32_t height;
+	int32_t depth;
 } gi_image_t;
 
 typedef enum
@@ -92,6 +96,8 @@ extern "C" LV_DLL_EXPORT int32_t clfn_abort(void* data);
 extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image);
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t * encoded_image, int32_t encoded_image_size, intptr_t* image_out);
 extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr);
+
+extern "C" LV_DLL_EXPORT gi_result load_gif_from_memory(const uint8_t* encoded_image, int32_t encoded_image_size, intptr_t* image_out);
 
 extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data);
 extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, intptr_t * image_data_out, int32_t * image_data_count_out);

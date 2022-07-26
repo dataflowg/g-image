@@ -1,6 +1,6 @@
 ﻿<?xml version='1.0' encoding='UTF-8'?>
 <Project Type="Project" LVVersion="20008000">
-	<Property Name="CCSymbols" Type="Str">DEBUG_LIB,FALSE;</Property>
+	<Property Name="CCSymbols" Type="Str">DEBUG_LIB,TRUE;</Property>
 	<Property Name="NI.LV.All.SourceOnly" Type="Bool">true</Property>
 	<Property Name="NI.Project.Description" Type="Str"></Property>
 	<Property Name="utf.calculate.project.code.coverage" Type="Bool">true</Property>
@@ -70,23 +70,28 @@
 			<Item Name="Image Rotation Example.vi" Type="VI" URL="../G-Image/Examples/Image Rotation Example.vi"/>
 		</Item>
 		<Item Name="Unit Tests" Type="Folder">
+			<Item Name="Test Load BMP (Memory).vi" Type="VI" URL="../Unit Tests/Test Load BMP (Memory).vi"/>
+			<Item Name="Test Load BMP (Path).vi" Type="VI" URL="../Unit Tests/Test Load BMP (Path).vi"/>
+			<Item Name="Test Load GIF (Memory).vi" Type="VI" URL="../Unit Tests/Test Load GIF (Memory).vi"/>
+			<Item Name="Test Load GIF (Path).vi" Type="VI" URL="../Unit Tests/Test Load GIF (Path).vi"/>
+			<Item Name="Test Load JPG (Memory).vi" Type="VI" URL="../Unit Tests/Test Load JPG (Memory).vi"/>
+			<Item Name="Test Load JPG (Path).vi" Type="VI" URL="../Unit Tests/Test Load JPG (Path).vi"/>
 			<Item Name="Test Load PNG (Memory).vi" Type="VI" URL="../Unit Tests/Test Load PNG (Memory).vi"/>
 			<Item Name="Test Load PNG (Path).vi" Type="VI" URL="../Unit Tests/Test Load PNG (Path).vi"/>
+			<Item Name="Test Load TGA (Memory).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Memory).vi"/>
+			<Item Name="Test Load TGA (Path).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Path).vi"/>
 		</Item>
 		<Item Name="G-Image.lvlib" Type="Library" URL="../G-Image/G-Image.lvlib"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="Application Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Application Directory.vi"/>
 				<Item Name="Bit-array To Byte-array.vi" Type="VI" URL="/&lt;vilib&gt;/picture/pictutil.llb/Bit-array To Byte-array.vi"/>
-				<Item Name="Check Path.vi" Type="VI" URL="/&lt;vilib&gt;/picture/jpeg.llb/Check Path.vi"/>
 				<Item Name="Create Mask By Alpha.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Create Mask By Alpha.vi"/>
-				<Item Name="Directory of Top Level VI.vi" Type="VI" URL="/&lt;vilib&gt;/picture/jpeg.llb/Directory of Top Level VI.vi"/>
 				<Item Name="Draw Flattened Pixmap.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Draw Flattened Pixmap.vi"/>
 				<Item Name="Error Cluster From Error Code.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Error Cluster From Error Code.vi"/>
 				<Item Name="FixBadRect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/pictutil.llb/FixBadRect.vi"/>
 				<Item Name="imagedata.ctl" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/imagedata.ctl"/>
 				<Item Name="NI_FileType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/lvfile.llb/NI_FileType.lvlib"/>
-				<Item Name="Read PNG File.vi" Type="VI" URL="/&lt;vilib&gt;/picture/png.llb/Read PNG File.vi"/>
 			</Item>
 			<Item Name="g_image_32.dll" Type="Document" URL="../G-Image/lib/g_image_32.dll"/>
 		</Item>

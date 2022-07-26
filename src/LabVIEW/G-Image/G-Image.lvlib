@@ -38,7 +38,7 @@ https://github.com/dataflowg/g-image</Property>
 	<Item Name="Private" Type="Folder">
 		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
 		<Item Name="ARGB To RGBA.vi" Type="VI" URL="../Private/ARGB To RGBA.vi"/>
-		<Item Name="Copy Image To Pixmap.vi" Type="VI" URL="../Private/Copy Image To Pixmap.vi"/>
+		<Item Name="Copy Image To Picture.vi" Type="VI" URL="../Private/Copy Image To Picture.vi"/>
 		<Item Name="Debug Path.vi" Type="VI" URL="../Private/Debug Path.vi"/>
 		<Item Name="Get Image Data.vi" Type="VI" URL="../Private/Get Image Data.vi"/>
 		<Item Name="Path To UTF-8 String.vi" Type="VI" URL="../Private/Path To UTF-8 String.vi"/>

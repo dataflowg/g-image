@@ -19,7 +19,7 @@ extern "C" LV_DLL_EXPORT int32_t clfn_abort(void* data)
 extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image_out)
 {
 	int x, y, n;
-	gi_image_t* image = (gi_image_t*)malloc(sizeof(gi_image_t));
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
 	
 	if (image == NULL)
 	{
@@ -48,7 +48,7 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, intptr_t* image_out)
 {
 	int x, y, n;
-	gi_image_t* image = (gi_image_t*)malloc(sizeof(gi_image_t));
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
 
 	if (image == NULL)
 	{
@@ -74,12 +74,63 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 	return GI_SUCCESS;
 }
 
+void load_gif_frame_callback(void* context, struct GIF_WHDR* data)
+{
+	gi_image_t* image = (gi_image_t*)context;
+
+	if (image != NULL)
+	{
+		// frame X dim * frame Y dim
+		image->data_size = data->frxd * data->fryd;
+		image->data = (uint8_t*)malloc(image->data_size);
+		if (image->data == NULL)
+		{
+			image->data_size = 0;
+			return;
+		}
+		image->color_size = data->clrs;
+		image->colors = (uint32_t*)malloc(image->color_size * sizeof(uint32_t));
+		if (image->colors == NULL)
+		{
+			free(image->data);
+			image->color_size = 0;
+			return;
+		}
+		memcpy(image->data, data->bptr, image->data_size);
+		for (int i = 0; i < image->color_size; i++)
+		{
+			image->colors[i] = data->cpal[i].R << 16 | data->cpal[i].G << 8 | data->cpal[i].B;
+		}
+		image->width = data->frxd;
+		image->height = data->fryd;
+		image->depth = 8;
+	}
+}
+
+extern "C" LV_DLL_EXPORT gi_result load_gif_from_memory(const uint8_t * encoded_image, int32_t encoded_image_size, intptr_t* image_out)
+{
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	GIF_Load((void*)encoded_image, encoded_image_size, load_gif_frame_callback, NULL, image, 0);
+
+	*image_out = (intptr_t)image;
+
+	return GI_SUCCESS;
+}
+
 extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr)
 {
 	gi_image_t* image = (gi_image_t*)image_ptr;
 
 	STBI_FREE(image->data);
 	image->data = NULL;
+	STBI_FREE(image->colors);
+	image->colors = NULL;
 	free(image);
 	image = NULL;
 
