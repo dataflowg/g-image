@@ -16,20 +16,25 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Image Save Format.ctl" Type="VI" URL="../Image IO/Controls/Image Save Format.ctl"/>
 		</Item>
 		<Item Name="Polymorphic VIs" Type="Folder">
-			<Item Name="Load Image From File (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image From File (Path).vi"/>
-			<Item Name="Load Image From File (UTF-8).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image From File (UTF-8).vi"/>
-			<Item Name="Save Image To File (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Image To File (Path).vi"/>
-			<Item Name="Save Image To File (UTF-8).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Image To File (UTF-8).vi"/>
+			<Item Name="Load Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Memory).vi"/>
+			<Item Name="Load Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Path).vi"/>
+			<Item Name="Load Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (UTF-8 Path).vi"/>
+			<Item Name="Save JPG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (Memory).vi"/>
+			<Item Name="Save JPG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (Path).vi"/>
+			<Item Name="Save JPG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (UTF-8 Path).vi"/>
+			<Item Name="Save PNG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (Memory).vi"/>
+			<Item Name="Save PNG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (Path).vi"/>
+			<Item Name="Save PNG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (UTF-8 Path).vi"/>
 		</Item>
 		<Item Name="Private" Type="Folder">
 			<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
-			<Item Name="Load Image From File (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (Core).vi"/>
-			<Item Name="Save Image To File (Core).vi" Type="VI" URL="../Image IO/Private/Save Image To File (Core).vi"/>
+			<Item Name="Load Image (Core).vi" Type="VI" URL="../Image IO/Private/Load Image (Core).vi"/>
+			<Item Name="Save JPG Image (Core).vi" Type="VI" URL="../Image IO/Private/Save JPG Image (Core).vi"/>
+			<Item Name="Save PNG Image (Core).vi" Type="VI" URL="../Image IO/Private/Save PNG Image (Core).vi"/>
 		</Item>
-		<Item Name="Load Image From File.vi" Type="VI" URL="../Image IO/Load Image From File.vi"/>
-		<Item Name="Load Image From Memory.vi" Type="VI" URL="../Image IO/Load Image From Memory.vi"/>
-		<Item Name="Save Image To File.vi" Type="VI" URL="../Image IO/Save Image To File.vi"/>
-		<Item Name="Save Image To Memory.vi" Type="VI" URL="../Image IO/Save Image To Memory.vi"/>
+		<Item Name="Load Image.vi" Type="VI" URL="../Image IO/Load Image.vi"/>
+		<Item Name="Save JPG Image.vi" Type="VI" URL="../Image IO/Save JPG Image.vi"/>
+		<Item Name="Save PNG Image.vi" Type="VI" URL="../Image IO/Save PNG Image.vi"/>
 	</Item>
 	<Item Name="Image Processing" Type="Folder">
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>

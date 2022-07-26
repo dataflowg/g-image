@@ -99,8 +99,8 @@ extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr);
 
 extern "C" LV_DLL_EXPORT gi_result load_gif_from_memory(const uint8_t* encoded_image, int32_t encoded_image_size, intptr_t* image_out);
 
-extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data);
-extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, intptr_t * image_data_out, int32_t * image_data_count_out);
+extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option);
+extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option, intptr_t * image_data_out, int32_t * image_data_count_out);
 extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr);
 
 extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t * image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in,

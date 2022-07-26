@@ -137,7 +137,7 @@ extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr)
 	return GI_SUCCESS;
 }
 
-extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data)
+extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option)
 {
 	int result;
 
@@ -145,7 +145,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 	switch (format_save)
 	{
 		case format_save_png: result = stbi_write_png(file_name, width, height, channels, image_data, 0); break;
-		case format_save_jpg: result = stbi_write_jpg(file_name, width, height, channels, image_data, 85); break;
+		case format_save_jpg: result = stbi_write_jpg(file_name, width, height, channels, image_data, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp(file_name, width, height, channels, image_data); break;
 		case format_save_tga: result = stbi_write_tga(file_name, width, height, channels, image_data); break;
 		default: return GI_E_UNSUPPORTED; break;
@@ -191,7 +191,7 @@ void save_callback(void *context, void *data, int size)
 	callback_data->image_data_count = callback_data->image_data_count + size;
 }
 
-extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data_in, intptr_t* encoded_image, int32_t* encoded_image_count)
+extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data_in, void* option, intptr_t* encoded_image, int32_t* encoded_image_count)
 {
 	int result;
 	save_callback_data_t callback_data;
@@ -210,7 +210,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 	switch (format_save)
 	{
 		case format_save_png: result = stbi_write_png_to_func(save_callback, &callback_data, width, height, channels, image_data_in, 0); break;
-		case format_save_jpg: result = stbi_write_jpg_to_func(save_callback, &callback_data, width, height, channels, image_data_in, 85); break;
+		case format_save_jpg: result = stbi_write_jpg_to_func(save_callback, &callback_data, width, height, channels, image_data_in, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
 		case format_save_tga: result = stbi_write_tga_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
 		default: return GI_E_UNSUPPORTED; break;
