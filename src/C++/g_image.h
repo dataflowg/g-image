@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#define STBI_WINDOWS_UTF8
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -51,11 +52,13 @@ typedef struct
 {
 	uint8_t* data;
 	uint32_t* colors;
+	int32_t* delays;
 	int32_t data_size;
 	int32_t color_size;
 	int32_t width;
 	int32_t height;
 	int32_t depth;
+	int32_t layers;
 } gi_image_t;
 
 typedef enum
@@ -105,5 +108,51 @@ extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr);
 
 extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t * image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in,
 												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out);
+
+//////////////////////////
+// Ancilliary Functions //
+//////////////////////////
+STBIDEF unsigned char *stbi_load_extended(stbi__context* s, int* x, int* y, int* n, int* layers, int** delays)
+{
+	unsigned char *result = 0;
+
+	if (stbi__gif_test(s))
+		return (uint8_t*)stbi__load_gif_main(s, delays, x, y, layers, n, 4);
+
+	stbi__result_info ri;
+	result = (uint8_t*)stbi__load_main(s, x, y, n, 4, &ri, 8);
+	*layers = !!result;
+
+	if (ri.bits_per_channel != 8) {
+		STBI_ASSERT(ri.bits_per_channel == 16);
+		result = stbi__convert_16_to_8((stbi__uint16 *)result, *x, *y, 4);
+		ri.bits_per_channel = 8;
+	}
+
+	return result;
+}
+
+STBIDEF unsigned char *stbi_load_from_memory_extended(const unsigned char* buffer, int len, int* x, int* y, int* n, int* layers, int** delays)
+{
+	stbi__context s;
+	stbi__start_mem(&s, buffer, len);
+	return stbi_load_extended(&s, x, y, n, layers, delays);
+}
+
+STBIDEF unsigned char *stbi_load_from_file_extended(const char* filename, int* x, int* y, int* n, int* layers, int** delays)
+{
+	FILE *f;
+	stbi__context s;
+	unsigned char *result = 0;
+
+	if (!(f = stbi__fopen(filename, "rb")))
+		return stbi__errpuc("can't fopen", "Unable to open file");
+
+	stbi__start_file(&s, f);
+	result = stbi_load_extended(&s, x, y, n, layers, delays);
+	fclose(f);
+
+	return result;
+}
 
 #endif

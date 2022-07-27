@@ -18,15 +18,23 @@ extern "C" LV_DLL_EXPORT int32_t clfn_abort(void* data)
 
 extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image_out)
 {
-	int x, y, n;
-	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
-	
-	if (image == NULL)
+	int x, y, n, layers;
+	int* delays = (int*)malloc(sizeof(int));
+
+	if (delays == NULL)
 	{
 		return GI_E_MEMORY;
 	}
 
-	image->data = stbi_load(file_name, &x, &y, &n, 4);
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+	
+	if (image == NULL)
+	{
+		free(delays);
+		return GI_E_MEMORY;
+	}
+
+	image->data = stbi_load_from_file_extended(file_name, &x, &y, &n, &layers, &delays);
 
 	if (image->data == NULL)
 	{
@@ -35,10 +43,12 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 		return GI_E_GENERIC;
 	}
 
-	image->data_size = sizeof(uint8_t) * x * y * 4;
+	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
 	image->width = x;
 	image->height = y;
 	image->depth = n * 8;
+	image->layers = layers;
+	image->delays = delays;
 
 	*image_out = (intptr_t)image;
 
@@ -47,7 +57,14 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, intptr_t* image_out)
 {
-	int x, y, n;
+	int x, y, n, layers;
+	int* delays = (int*)malloc(sizeof(int));
+
+	if (delays == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
 	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
 
 	if (image == NULL)
@@ -55,7 +72,7 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 		return GI_E_MEMORY;
 	}
 
-	image->data = stbi_load_from_memory(encoded_image, encoded_image_count, &x, &y, &n, 4);
+	image->data = stbi_load_from_memory_extended(encoded_image, encoded_image_count, &x, &y, &n, &layers, &delays);
 
 	if (image->data == NULL)
 	{
@@ -64,10 +81,12 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 		return GI_E_GENERIC;
 	}
 
-	image->data_size = sizeof(uint8_t) * x * y * 4;
+	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
 	image->width = x;
 	image->height = y;
 	image->depth = n * 8;
+	image->layers = layers;
+	image->delays = delays;
 
 	*image_out = (intptr_t)image;
 
@@ -131,6 +150,8 @@ extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr)
 	image->data = NULL;
 	STBI_FREE(image->colors);
 	image->colors = NULL;
+	STBI_FREE(image->delays);
+	image->delays = NULL;
 	free(image);
 	image = NULL;
 

@@ -16,6 +16,9 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Image Save Format.ctl" Type="VI" URL="../Image IO/Controls/Image Save Format.ctl"/>
 		</Item>
 		<Item Name="Polymorphic VIs" Type="Folder">
+			<Item Name="Load Animated GIF Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Animated GIF Image (Memory).vi"/>
+			<Item Name="Load Animated GIF Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Animated GIF Image (Path).vi"/>
+			<Item Name="Load Animated GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Animated GIF Image (UTF-8 Path).vi"/>
 			<Item Name="Load Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Memory).vi"/>
 			<Item Name="Load Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Path).vi"/>
 			<Item Name="Load Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (UTF-8 Path).vi"/>
@@ -39,6 +42,7 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Save Image To File (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To File (Core).vim"/>
 			<Item Name="Save Image To Memory (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To Memory (Core).vim"/>
 		</Item>
+		<Item Name="Load Animated GIF Image.vi" Type="VI" URL="../Image IO/Load Animated GIF Image.vi"/>
 		<Item Name="Load Image.vi" Type="VI" URL="../Image IO/Load Image.vi"/>
 		<Item Name="Save BMP Image.vi" Type="VI" URL="../Image IO/Save BMP Image.vi"/>
 		<Item Name="Save JPG Image.vi" Type="VI" URL="../Image IO/Save JPG Image.vi"/>
@@ -54,6 +58,8 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="ARGB To RGBA.vi" Type="VI" URL="../Private/ARGB To RGBA.vi"/>
 		<Item Name="Copy Image To Picture.vi" Type="VI" URL="../Private/Copy Image To Picture.vi"/>
 		<Item Name="Debug Path.vi" Type="VI" URL="../Private/Debug Path.vi"/>
+		<Item Name="Extended Image To Frames.vi" Type="VI" URL="../Private/Extended Image To Frames.vi"/>
+		<Item Name="Extended Image.ctl" Type="VI" URL="../Private/Extended Image.ctl"/>
 		<Item Name="Fast Create Mask By Alpha.vi" Type="VI" URL="../Private/Fast Create Mask By Alpha.vi"/>
 		<Item Name="Get Image Data.vi" Type="VI" URL="../Private/Get Image Data.vi"/>
 		<Item Name="Path To UTF-8 String.vi" Type="VI" URL="../Private/Path To UTF-8 String.vi"/>

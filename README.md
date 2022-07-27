@@ -50,6 +50,7 @@ PNG             | :heavy_check_mark:¹ | :heavy_check_mark:
 JPEG            | :heavy_check_mark:  | :heavy_check_mark:
 BMP             | :heavy_check_mark:¹ | :heavy_check_mark:²
 GIF             | :heavy_check_mark:¹ | :x:
+Animated GIF    | :heavy_check_mark:¹ | :x:
 TGA             | :heavy_check_mark:  | :x:
 
 ¹ *Palettized images (8-bit and below) are supported, but are converted to 24-bit RGB or 32-bit RGBA images. This may change in future updates.*
