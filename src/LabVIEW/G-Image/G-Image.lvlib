@@ -19,22 +19,31 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Load Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Memory).vi"/>
 			<Item Name="Load Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Path).vi"/>
 			<Item Name="Load Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (UTF-8 Path).vi"/>
+			<Item Name="Save BMP Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Memory).vi"/>
+			<Item Name="Save BMP Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Path).vi"/>
+			<Item Name="Save BMP Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (UTF-8 Path).vi"/>
 			<Item Name="Save JPG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (Memory).vi"/>
 			<Item Name="Save JPG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (Path).vi"/>
 			<Item Name="Save JPG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (UTF-8 Path).vi"/>
 			<Item Name="Save PNG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (Memory).vi"/>
 			<Item Name="Save PNG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (Path).vi"/>
 			<Item Name="Save PNG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (UTF-8 Path).vi"/>
+			<Item Name="Save TGA Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save TGA Image (Memory).vi"/>
+			<Item Name="Save TGA Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save TGA Image (Path).vi"/>
+			<Item Name="Save TGA Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save TGA Image (UTF-8 Path).vi"/>
 		</Item>
 		<Item Name="Private" Type="Folder">
 			<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
-			<Item Name="Load Image (Core).vi" Type="VI" URL="../Image IO/Private/Load Image (Core).vi"/>
-			<Item Name="Save JPG Image (Core).vi" Type="VI" URL="../Image IO/Private/Save JPG Image (Core).vi"/>
-			<Item Name="Save PNG Image (Core).vi" Type="VI" URL="../Image IO/Private/Save PNG Image (Core).vi"/>
+			<Item Name="Load Image From File (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (Core).vi"/>
+			<Item Name="Load Image From Memory (Core).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image From Memory (Core).vi"/>
+			<Item Name="Save Image To File (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To File (Core).vim"/>
+			<Item Name="Save Image To Memory (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To Memory (Core).vim"/>
 		</Item>
 		<Item Name="Load Image.vi" Type="VI" URL="../Image IO/Load Image.vi"/>
+		<Item Name="Save BMP Image.vi" Type="VI" URL="../Image IO/Save BMP Image.vi"/>
 		<Item Name="Save JPG Image.vi" Type="VI" URL="../Image IO/Save JPG Image.vi"/>
 		<Item Name="Save PNG Image.vi" Type="VI" URL="../Image IO/Save PNG Image.vi"/>
+		<Item Name="Save TGA Image.vi" Type="VI" URL="../Image IO/Save TGA Image.vi"/>
 	</Item>
 	<Item Name="Image Processing" Type="Folder">
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>
@@ -45,6 +54,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="ARGB To RGBA.vi" Type="VI" URL="../Private/ARGB To RGBA.vi"/>
 		<Item Name="Copy Image To Picture.vi" Type="VI" URL="../Private/Copy Image To Picture.vi"/>
 		<Item Name="Debug Path.vi" Type="VI" URL="../Private/Debug Path.vi"/>
+		<Item Name="Fast Create Mask By Alpha.vi" Type="VI" URL="../Private/Fast Create Mask By Alpha.vi"/>
 		<Item Name="Get Image Data.vi" Type="VI" URL="../Private/Get Image Data.vi"/>
 		<Item Name="Path To UTF-8 String.vi" Type="VI" URL="../Private/Path To UTF-8 String.vi"/>
 		<Item Name="Result To Error.vi" Type="VI" URL="../Private/Result To Error.vi"/>
