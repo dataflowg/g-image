@@ -3,7 +3,7 @@
   <img width="300" height="115" src="images/g-image-logo.png">
 </p>
 <p align="center">
-A cross-platform LabVIEW library for image loading, saving, and processing.
+A cross-platform LabVIEW library for loading, saving, and processing images.
 </p>
 
 <p align="center">
@@ -22,9 +22,9 @@ A cross-platform LabVIEW library for image loading, saving, and processing.
 
 ## <a id="features"></a>Features
 * Load images from file or from memory in a range of formats, including:
-    * png, jpg, bmp
+    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, PSD, HDR, PIC, PNM
 * Save images to file or to memory in a range of formats, including:
-    * png, jpg, bmp
+    * PNG, JPG, BMP, TGA
 * Basic image processing functions:
     * Resize
     * Rotate
@@ -52,6 +52,10 @@ BMP             | :heavy_check_mark:¹ | :heavy_check_mark:²
 GIF             | :heavy_check_mark:¹ | :x:
 Animated GIF    | :heavy_check_mark:¹ | :x:
 TGA             | :heavy_check_mark:  | :x:
+PSD             | :heavy_check_mark:  | :x:
+HDR             | :heavy_check_mark:  | :x:
+PIC             | :heavy_check_mark:  | :x:
+PNM             | :heavy_check_mark:  | :x:
 
 ¹ *Palettized images (8-bit and below) are supported, but are converted to 24-bit RGB or 32-bit RGBA images. This may change in future updates.*
 
