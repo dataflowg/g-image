@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E578CD73289248BB009D41D7 /* g_image.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD71289248BB009D41D7 /* g_image.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E578CD8328924979009D41D7 /* gif_load.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD7928924978009D41D7 /* gif_load.h */; };
+		E578CD73289248BB009D41D7 /* xcode.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD71289248BB009D41D7 /* xcode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E578CD8428924979009D41D7 /* g_image.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD7A28924978009D41D7 /* g_image.h */; };
 		E578CD8528924979009D41D7 /* dllmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E578CD7B28924978009D41D7 /* dllmain.cpp */; };
 		E578CD8628924979009D41D7 /* stb_image_write.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD7C28924978009D41D7 /* stb_image_write.h */; };
@@ -22,9 +21,8 @@
 
 /* Begin PBXFileReference section */
 		E578CD6E289248BB009D41D7 /* g_image_64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = g_image_64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E578CD71289248BB009D41D7 /* g_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = g_image.h; sourceTree = "<group>"; };
+		E578CD71289248BB009D41D7 /* xcode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xcode.h; sourceTree = "<group>"; };
 		E578CD72289248BB009D41D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E578CD7928924978009D41D7 /* gif_load.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gif_load.h; path = ../../gif_load.h; sourceTree = "<group>"; };
 		E578CD7A28924978009D41D7 /* g_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = g_image.h; path = ../../g_image.h; sourceTree = "<group>"; };
 		E578CD7B28924978009D41D7 /* dllmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dllmain.cpp; path = ../../dllmain.cpp; sourceTree = "<group>"; };
 		E578CD7C28924978009D41D7 /* stb_image_write.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image_write.h; path = ../../stb_image_write.h; sourceTree = "<group>"; };
@@ -69,9 +67,8 @@
 				E578CD7B28924978009D41D7 /* dllmain.cpp */,
 				E578CD8028924979009D41D7 /* framework.h */,
 				E578CD7E28924978009D41D7 /* g_image.cpp */,
-				E578CD71289248BB009D41D7 /* g_image.h */,
+				E578CD71289248BB009D41D7 /* xcode.h */,
 				E578CD7A28924978009D41D7 /* g_image.h */,
-				E578CD7928924978009D41D7 /* gif_load.h */,
 				E578CD7D28924978009D41D7 /* pch.cpp */,
 				E578CD7F28924978009D41D7 /* pch.h */,
 				E578CD8128924979009D41D7 /* stb_image_resize.h */,
@@ -90,13 +87,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E578CD8628924979009D41D7 /* stb_image_write.h in Headers */,
-				E578CD73289248BB009D41D7 /* g_image.h in Headers */,
+				E578CD73289248BB009D41D7 /* xcode.h in Headers */,
 				E578CD8B28924979009D41D7 /* stb_image_resize.h in Headers */,
 				E578CD8428924979009D41D7 /* g_image.h in Headers */,
 				E578CD8C28924979009D41D7 /* stb_image.h in Headers */,
 				E578CD8A28924979009D41D7 /* framework.h in Headers */,
 				E578CD8928924979009D41D7 /* pch.h in Headers */,
-				E578CD8328924979009D41D7 /* gif_load.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

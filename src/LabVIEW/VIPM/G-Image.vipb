@@ -1,7 +1,7 @@
-<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2022-07-28 15:37:59" Creator="Dataflow_G" Comments="" ID="cb34cf0a6363b2fedd6d673daabd52bc">
+<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2022-07-28 16:33:52" Creator="Dataflow_G" Comments="" ID="bc147e114c5bf4b40c58fa3e4f328848">
   <Library_General_Settings>
     <Package_File_Name>Dataflow_G_lib_G_Image</Package_File_Name>
-    <Library_Version>0.1.0.1</Library_Version>
+    <Library_Version>0.1.0.2</Library_Version>
     <Auto_Increment_Version>false</Auto_Increment_Version>
     <Library_Source_Folder>..</Library_Source_Folder>
     <Library_Output_Folder>.</Library_Output_Folder>
@@ -32,9 +32,9 @@
 
 Features include:
 * Load images from file or from memory in a range of formats, including:
-    * png, jpg, bmp
+    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, PSD, HDR, PIC, PNM
 * Save images to file or to memory in a range of formats, including:
-    * png, jpg, bmp
+    * PNG, JPG, BMP, TGA
 * Basic image processing functions:
     * Resize
     * Rotate</Description>
@@ -271,7 +271,7 @@ Features include:
         <Path>..\Examples</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>52232181D41C35206FA89691563BDD4C</GUID>
+      <GUID>B9A10A9337FB466CA14541B26434CB97</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -376,7 +376,7 @@ Features include:
         <Path>..\G-Image\Image IO\Load Animated GIF Image.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>BD7AEEC83D5EE44AE9D33E3240AFF887</GUID>
+      <GUID>DA554DD48C5AFDC121F80D5023887DB8</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -425,7 +425,7 @@ Features include:
         <Path>..\G-Image\Image Processing\Rotate Image.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>7F538C5E9BF33DA9E0D48EDF30848FAC</GUID>
+      <GUID>375B4EB761EE764046379F68347CDF69</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -474,7 +474,7 @@ Features include:
         <Path>..\G-Image\Examples\Animated GIF Example.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>314B7079589B2200D59FB1547D1310EE</GUID>
+      <GUID>D4E91E98385C234F45A9494278A2CE36</GUID>
     </Functions_Palette_Data>
   </Library_Palette_Definition>
 </VI_Package_Builder_Settings>
