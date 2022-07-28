@@ -67,6 +67,7 @@
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="Examples" Type="Folder">
+			<Item Name="Animated GIF Example.vi" Type="VI" URL="../G-Image/Examples/Animated GIF Example.vi"/>
 			<Item Name="Image Rotation Example.vi" Type="VI" URL="../G-Image/Examples/Image Rotation Example.vi"/>
 		</Item>
 		<Item Name="Unit Tests" Type="Folder">
