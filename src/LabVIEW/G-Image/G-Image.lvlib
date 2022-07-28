@@ -59,8 +59,8 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Copy Image To Picture.vi" Type="VI" URL="../Private/Copy Image To Picture.vi"/>
 		<Item Name="Debug Path.vi" Type="VI" URL="../Private/Debug Path.vi"/>
 		<Item Name="Extended Image To Frames.vi" Type="VI" URL="../Private/Extended Image To Frames.vi"/>
+		<Item Name="Extended Image To Image.vi" Type="VI" URL="../Private/Extended Image To Image.vi"/>
 		<Item Name="Extended Image.ctl" Type="VI" URL="../Private/Extended Image.ctl"/>
-		<Item Name="Fast Create Mask By Alpha.vi" Type="VI" URL="../Private/Fast Create Mask By Alpha.vi"/>
 		<Item Name="Get Image Data.vi" Type="VI" URL="../Private/Get Image Data.vi"/>
 		<Item Name="Path To UTF-8 String.vi" Type="VI" URL="../Private/Path To UTF-8 String.vi"/>
 		<Item Name="Result To Error.vi" Type="VI" URL="../Private/Result To Error.vi"/>
