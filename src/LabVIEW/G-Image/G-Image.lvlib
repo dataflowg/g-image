@@ -50,6 +50,10 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Save TGA Image.vi" Type="VI" URL="../Image IO/Save TGA Image.vi"/>
 	</Item>
 	<Item Name="Image Processing" Type="Folder">
+		<Item Name="Controls" Type="Folder">
+			<Item Name="Flip Direction.ctl" Type="VI" URL="../Image Processing/Controls/Flip Direction.ctl"/>
+		</Item>
+		<Item Name="Flip Image.vi" Type="VI" URL="../Image Processing/Flip Image.vi"/>
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>
 		<Item Name="Rotate Image.vi" Type="VI" URL="../Image Processing/Rotate Image.vi"/>
 	</Item>
