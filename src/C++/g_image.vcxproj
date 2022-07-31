@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="g_image.h" />
+    <ClInclude Include="miniz.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_image_resize.h" />

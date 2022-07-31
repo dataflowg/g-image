@@ -24,7 +24,7 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 * Load images from file or from memory in a range of formats, including:
     * PNG, JPEG, BMP, GIF, Animated GIF, TGA, PSD, HDR, PIC, PNM
 * Save images to file or to memory in a range of formats, including:
-    * PNG, JPG, BMP, TGA
+    * PNG, JPEG, BMP, TGA
 * Basic image processing functions:
     * Resize
     * Rotate
@@ -89,3 +89,6 @@ Library | Author | Public Domain License
 [stb_image.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
 [stb_image_write.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
 [stb_image_resize.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
+[miniz](https://code.google.com/archive/p/miniz)* | Rich Geldreich | [Unlicense](https://code.google.com/archive/p/miniz)
+
+\*The linked version is public domain. Newer versions of miniz are MIT licensed.

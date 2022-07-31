@@ -105,7 +105,8 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 	image_format_save_t format_save = (image_format_save_t)format;
 	switch (format_save)
 	{
-		case format_save_png: result = stbi_write_png(file_name, width, height, channels, image_data, 0); break;
+		case format_save_png: stbi_write_png_compression_level = *(int32_t*)option;
+			                  result = stbi_write_png(file_name, width, height, channels, image_data, 0); break;
 		case format_save_jpg: result = stbi_write_jpg(file_name, width, height, channels, image_data, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp(file_name, width, height, channels, image_data); break;
 		case format_save_tga: result = stbi_write_tga(file_name, width, height, channels, image_data); break;
@@ -170,7 +171,8 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 	image_format_save_t format_save = (image_format_save_t)format;
 	switch (format_save)
 	{
-		case format_save_png: result = stbi_write_png_to_func(save_callback, &callback_data, width, height, channels, image_data_in, 0); break;
+		case format_save_png: stbi_write_png_compression_level = *(int32_t*)option;
+							  result = stbi_write_png_to_func(save_callback, &callback_data, width, height, channels, image_data_in, 0); break;
 		case format_save_jpg: result = stbi_write_jpg_to_func(save_callback, &callback_data, width, height, channels, image_data_in, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
 		case format_save_tga: result = stbi_write_tga_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
