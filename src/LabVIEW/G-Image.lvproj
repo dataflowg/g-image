@@ -95,7 +95,6 @@
 				<Item Name="imagedata.ctl" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/imagedata.ctl"/>
 				<Item Name="NI_FileType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/lvfile.llb/NI_FileType.lvlib"/>
 			</Item>
-			<Item Name="Depth To Number Components.vi" Type="VI" URL="../G-Image/Private/Depth To Number Components.vi"/>
 			<Item Name="g_image_32.dll" Type="Document" URL="../G-Image/lib/g_image_32.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build"/>

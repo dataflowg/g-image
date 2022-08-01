@@ -69,6 +69,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Extended Image.ctl" Type="VI" URL="../Private/Extended Image.ctl"/>
 		<Item Name="Get Image Data Size.vi" Type="VI" URL="../Private/Get Image Data Size.vi"/>
 		<Item Name="Get Image Data.vi" Type="VI" URL="../Private/Get Image Data.vi"/>
+		<Item Name="Get Row Stride.vi" Type="VI" URL="../Private/Get Row Stride.vi"/>
 		<Item Name="Path To UTF-8 String.vi" Type="VI" URL="../Private/Path To UTF-8 String.vi"/>
 		<Item Name="Remove Image Padding.vi" Type="VI" URL="../Image Processing/Remove Image Padding.vi"/>
 		<Item Name="Result To Error.vi" Type="VI" URL="../Private/Result To Error.vi"/>
