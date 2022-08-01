@@ -53,6 +53,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Controls" Type="Folder">
 			<Item Name="Flip Direction.ctl" Type="VI" URL="../Image Processing/Controls/Flip Direction.ctl"/>
 		</Item>
+		<Item Name="De-palettize Image.vi" Type="VI" URL="../Image Processing/De-palettize Image.vi"/>
 		<Item Name="Flip Image.vi" Type="VI" URL="../Image Processing/Flip Image.vi"/>
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>
 		<Item Name="Rotate Image.vi" Type="VI" URL="../Image Processing/Rotate Image.vi"/>
@@ -62,11 +63,14 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="ARGB To RGBA.vi" Type="VI" URL="../Private/ARGB To RGBA.vi"/>
 		<Item Name="Copy Image To Picture.vi" Type="VI" URL="../Private/Copy Image To Picture.vi"/>
 		<Item Name="Debug Path.vi" Type="VI" URL="../Private/Debug Path.vi"/>
+		<Item Name="Depth To Number Channels.vi" Type="VI" URL="../Private/Depth To Number Channels.vi"/>
 		<Item Name="Extended Image To Frames.vi" Type="VI" URL="../Private/Extended Image To Frames.vi"/>
 		<Item Name="Extended Image To Image.vi" Type="VI" URL="../Private/Extended Image To Image.vi"/>
 		<Item Name="Extended Image.ctl" Type="VI" URL="../Private/Extended Image.ctl"/>
+		<Item Name="Get Image Data Size.vi" Type="VI" URL="../Private/Get Image Data Size.vi"/>
 		<Item Name="Get Image Data.vi" Type="VI" URL="../Private/Get Image Data.vi"/>
 		<Item Name="Path To UTF-8 String.vi" Type="VI" URL="../Private/Path To UTF-8 String.vi"/>
+		<Item Name="Remove Image Padding.vi" Type="VI" URL="../Image Processing/Remove Image Padding.vi"/>
 		<Item Name="Result To Error.vi" Type="VI" URL="../Private/Result To Error.vi"/>
 		<Item Name="RGBA To ARGB.vi" Type="VI" URL="../Private/RGBA To ARGB.vi"/>
 	</Item>
