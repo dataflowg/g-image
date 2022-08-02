@@ -52,9 +52,10 @@ https://github.com/dataflowg/g-image</Property>
 	<Item Name="Image Processing" Type="Folder">
 		<Item Name="Controls" Type="Folder">
 			<Item Name="Flip Direction.ctl" Type="VI" URL="../Image Processing/Controls/Flip Direction.ctl"/>
+			<Item Name="Resize Filter.ctl" Type="VI" URL="../Image Processing/Controls/Resize Filter.ctl"/>
 		</Item>
-		<Item Name="De-palettize Image.vi" Type="VI" URL="../Image Processing/De-palettize Image.vi"/>
 		<Item Name="Flip Image.vi" Type="VI" URL="../Image Processing/Flip Image.vi"/>
+		<Item Name="Indexed Color To True Color Image.vi" Type="VI" URL="../Image Processing/Indexed Color To True Color Image.vi"/>
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>
 		<Item Name="Rotate Image.vi" Type="VI" URL="../Image Processing/Rotate Image.vi"/>
 	</Item>

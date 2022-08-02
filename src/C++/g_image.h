@@ -37,8 +37,6 @@ unsigned char* compress_for_stbiw(unsigned char *data, int data_len, int *out_le
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
-#define STBIR_DEFAULT_FILTER_UPSAMPLE     STBIR_FILTER_BOX
-#define STBIR_DEFAULT_FILTER_DOWNSAMPLE   STBIR_FILTER_BOX
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
 #include "stb_image_resize.h"
 
@@ -116,7 +114,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr);
 
 extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t * image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in,
-												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out);
+												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out, int32_t filter);
 
 //////////////////////////
 // Ancilliary Functions //

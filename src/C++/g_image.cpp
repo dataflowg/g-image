@@ -109,7 +109,8 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 			                  result = stbi_write_png(file_name, width, height, channels, image_data, 0); break;
 		case format_save_jpg: result = stbi_write_jpg(file_name, width, height, channels, image_data, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp(file_name, width, height, channels, image_data); break;
-		case format_save_tga: result = stbi_write_tga(file_name, width, height, channels, image_data); break;
+		case format_save_tga: stbi_write_tga_with_rle = *(int32_t*)option;
+							  result = stbi_write_tga(file_name, width, height, channels, image_data); break;
 		default: return GI_E_UNSUPPORTED; break;
 	}
 
@@ -175,7 +176,8 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 							  result = stbi_write_png_to_func(save_callback, &callback_data, width, height, channels, image_data_in, 0); break;
 		case format_save_jpg: result = stbi_write_jpg_to_func(save_callback, &callback_data, width, height, channels, image_data_in, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
-		case format_save_tga: result = stbi_write_tga_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
+		case format_save_tga: stbi_write_tga_with_rle = *(int32_t*)option;
+							  result = stbi_write_tga_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
 		default: return GI_E_UNSUPPORTED; break;
 	}
 
@@ -206,11 +208,15 @@ extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr)
 }
 
 extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in,
-												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out)
+												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out, int32_t filter)
 {
 	int result;
 
-	result = stbir_resize_uint8(image_data_in, width_in, height_in, 0, image_data_out, width_resize, height_resize, 0, channels_in);
+	//result = stbir_resize_uint8(image_data_in, width_in, height_in, 0, image_data_out, width_resize, height_resize, 0, channels_in);
+
+	// Note: image_data_in will be in ARGB format when channels_in == 4, so the alpha index is 0.
+	result = stbir_resize_uint8_generic(image_data_in, width_in, height_in, 0, image_data_out, width_resize, height_resize, 0, channels_in,
+										channels_in == 4 ? 0 : STBIR_ALPHA_CHANNEL_NONE, 0, STBIR_EDGE_CLAMP, (stbir_filter)filter, STBIR_COLORSPACE_LINEAR, NULL);
 
 	if (result != 1)
 	{
