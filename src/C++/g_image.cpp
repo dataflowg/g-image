@@ -84,16 +84,22 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 
 extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr)
 {
-	gi_image_t* image = (gi_image_t*)image_ptr;
+	return free_image((gi_image_t*)image_ptr);
+}
 
-	STBI_FREE(image->data);
-	image->data = NULL;
-	STBI_FREE(image->colors);
-	image->colors = NULL;
-	STBI_FREE(image->delays);
-	image->delays = NULL;
-	free(image);
-	image = NULL;
+gi_result free_image(gi_image_t* image)
+{
+	if (image != NULL)
+	{
+		STBI_FREE(image->data);
+		image->data = NULL;
+		STBI_FREE(image->colors);
+		image->colors = NULL;
+		STBI_FREE(image->delays);
+		image->delays = NULL;
+		free(image);
+		image = NULL;
+	}
 
 	return GI_SUCCESS;
 }
@@ -109,6 +115,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 			                  result = stbi_write_png(file_name, width, height, channels, image_data, 0); break;
 		case format_save_jpg: result = stbi_write_jpg(file_name, width, height, channels, image_data, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp(file_name, width, height, channels, image_data); break;
+		case format_save_gif: result = gi_write_gif(file_name, width, height, channels, image_data, *(dither_type_t*)option); break;
 		case format_save_tga: stbi_write_tga_with_rle = *(int32_t*)option;
 							  result = stbi_write_tga(file_name, width, height, channels, image_data); break;
 		default: return GI_E_UNSUPPORTED; break;
@@ -121,6 +128,24 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 
 	return GI_SUCCESS;
 }
+
+gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, dither_type_t dither)
+{
+	GifWriter writer = {};
+	bool gif_result = true;
+
+	gif_result &= GifBeginUtf8(&writer, file_name, width, height, 0, 8, dither == dither_floyd_steinberg);
+	gif_result &= GifWriteFrame(&writer, image_data, width, height, 0, 8, dither == dither_floyd_steinberg);
+	gif_result &= GifEnd(&writer);
+
+	if (!gif_result)
+	{
+		return GI_E_FILE;
+	}
+
+	return GI_SUCCESS;
+}
+
 
 void save_callback(void *context, void *data, int size)
 {
@@ -225,3 +250,85 @@ extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t* image_data_in, in
 
 	return GI_SUCCESS;
 }
+
+
+extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, int32_t dither, uint8_t* image_data_out, uint32_t* colors_out)
+{
+	if (channels_in < 4)
+	{
+		return GI_E_UNSUPPORTED;
+	}
+
+	GifPalette pal;
+	GifMakePalette(NULL, image_data_in, width_in, height_in, depth, dither, &pal);
+
+	if (dither)
+		GifDitherImage(NULL, image_data_in, image_data_out, width_in, height_in, &pal);
+	else
+		GifThresholdImage(NULL, image_data_in, image_data_out, width_in, height_in, &pal);
+
+	int32_t num_colors = 1 << depth;
+	for (int i = 0; i < num_colors; i++)
+	{
+		colors_out[i] = pal.r[i] << 16 | pal.g[i] << 8 | pal.b[i];
+	}
+
+	return GI_SUCCESS;
+}
+
+
+
+
+/*void get_palette_image(uint8_t* rgba, int32_t width, int32_t height, uint8_t* indexedPixels, uint8_t* palette, int32_t colors)
+{
+	int32_t size = width * height;
+	unsigned char *ditheredPixels = (unsigned char*)malloc(size * 4);
+	memcpy(ditheredPixels, rgba, size * 4);
+	for (int k = 0; k < size * 4; k += 4) {
+		int rgb[3] = { ditheredPixels[k + 0], ditheredPixels[k + 1], ditheredPixels[k + 2] };
+		//int rgb[3] = { rgba[k + 0], rgba[k + 1], rgba[k + 2] };
+		int bestd = 0x7FFFFFFF, best = -1;
+		// TODO: exhaustive search. do something better.
+		for (int i = 0; i < colors; ++i) {
+			int bb = palette[i * 3 + 0] - rgb[0];
+			int gg = palette[i * 3 + 1] - rgb[1];
+			int rr = palette[i * 3 + 2] - rgb[2];
+			int d = bb * bb + gg * gg + rr * rr;
+			if (d < bestd) {
+				bestd = d;
+				best = i;
+			}
+		}
+		indexedPixels[k / 4] = best;
+		int diff[3] = { ditheredPixels[k + 0] - palette[indexedPixels[k / 4] * 3 + 0], ditheredPixels[k + 1] - palette[indexedPixels[k / 4] * 3 + 1], ditheredPixels[k + 2] - palette[indexedPixels[k / 4] * 3 + 2] };
+		// Floyd-Steinberg Error Diffusion
+		// TODO: Use something better -- http://caca.zoy.org/study/part3.html
+		if (k + 4 < size * 4) {
+			ditheredPixels[k + 4 + 0] = (unsigned char)jo_gif_clamp(ditheredPixels[k + 4 + 0] + (diff[0] * 7 / 16), 0, 255);
+			ditheredPixels[k + 4 + 1] = (unsigned char)jo_gif_clamp(ditheredPixels[k + 4 + 1] + (diff[1] * 7 / 16), 0, 255);
+			ditheredPixels[k + 4 + 2] = (unsigned char)jo_gif_clamp(ditheredPixels[k + 4 + 2] + (diff[2] * 7 / 16), 0, 255);
+		}
+		if (k + width * 4 + 4 < size * 4) {
+			for (int i = 0; i < 3; ++i) {
+				ditheredPixels[k - 4 + width * 4 + i] = (unsigned char)jo_gif_clamp(ditheredPixels[k - 4 + width * 4 + i] + (diff[i] * 3 / 16), 0, 255);
+				ditheredPixels[k + width * 4 + i] = (unsigned char)jo_gif_clamp(ditheredPixels[k + width * 4 + i] + (diff[i] * 5 / 16), 0, 255);
+				ditheredPixels[k + width * 4 + 4 + i] = (unsigned char)jo_gif_clamp(ditheredPixels[k + width * 4 + 4 + i] + (diff[i] * 1 / 16), 0, 255);
+			}
+		}
+	}
+	free(ditheredPixels);
+}
+
+extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, int32_t dither, uint8_t* image_data_out, uint8_t* colors_out)
+{
+	if (channels_in < 4)
+	{
+		return GI_E_UNSUPPORTED;
+	}
+
+	jo_gif_quantize((uint8_t*)image_data_in, width_in * height_in * channels_in, 1, colors_out, depth);
+	get_palette_image((uint8_t*)image_data_in, width_in, height_in, image_data_out, colors_out, depth);
+
+	return GI_SUCCESS;
+}
+*/

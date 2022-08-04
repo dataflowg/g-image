@@ -162,6 +162,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="gif.h" />
     <ClInclude Include="g_image.h" />
     <ClInclude Include="miniz.h" />
     <ClInclude Include="pch.h" />

@@ -34,11 +34,14 @@ unsigned char* compress_for_stbiw(unsigned char *data, int data_len, int *out_le
 #if defined( _WIN32 )
 #define __STDC_LIB_EXT1__
 #endif
+#define STBIW_WINDOWS_UTF8
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
 #include "stb_image_resize.h"
+
+#include "gif.h"
 
 #if defined(_WIN32)
 #define LV_DLL_IMPORT  __declspec(dllimport)
@@ -90,6 +93,12 @@ typedef enum
 	format_save_count
 } image_format_save_t;
 
+typedef enum
+{
+	dither_none,
+	dither_floyd_steinberg
+} dither_type_t;
+
 typedef struct
 {
 	uint8_t* image_data;
@@ -106,16 +115,20 @@ extern "C" LV_DLL_EXPORT int32_t clfn_abort(void* data);
 // LabVIEW image API //
 ///////////////////////
 extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image);
-extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t * encoded_image, int32_t encoded_image_size, intptr_t* image_out);
+extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_size, intptr_t* image_out);
 extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr);
+gi_result free_image(gi_image_t* image);
 
 extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option);
-extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option, intptr_t * image_data_out, int32_t * image_data_count_out);
+extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option, intptr_t* image_data_out, int32_t* image_data_count_out);
 extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr);
 
 extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t * image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in,
 												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out, int32_t filter);
 
+extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, int32_t dither, uint8_t* image_data_out, uint32_t* colors_out);
+
+gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, dither_type_t dither);
 //////////////////////////
 // Ancilliary Functions //
 //////////////////////////
@@ -161,6 +174,62 @@ STBIDEF unsigned char *stbi_load_from_file_extended(const char* filename, int* x
 	fclose(f);
 
 	return result;
+}
+
+// Creates a gif file.
+// The input GIFWriter is assumed to be uninitialized.
+// The delay value is the time between frames in hundredths of a second - note that not all viewers pay much attention to this value.
+bool GifBeginUtf8(GifWriter* writer, const char* filename, uint32_t width, uint32_t height, uint32_t delay, int32_t bitDepth = 8, bool dither = false)
+{
+	(void)bitDepth; (void)dither; // Mute "Unused argument" warnings
+
+	writer->f = stbiw__fopen(filename, "wb");
+	if (!writer->f) return false;
+
+	writer->firstFrame = true;
+
+	// allocate
+	writer->oldImage = (uint8_t*)GIF_MALLOC(width * height * 4);
+
+	fputs("GIF89a", writer->f);
+
+	// screen descriptor
+	fputc(width & 0xff, writer->f);
+	fputc((width >> 8) & 0xff, writer->f);
+	fputc(height & 0xff, writer->f);
+	fputc((height >> 8) & 0xff, writer->f);
+
+	fputc(0xf0, writer->f);  // there is an unsorted global color table of 2 entries
+	fputc(0, writer->f);     // background color
+	fputc(0, writer->f);     // pixels are square (we need to specify this because it's 1989)
+
+	// now the "global" palette (really just a dummy palette)
+	// color 0: black
+	fputc(0, writer->f);
+	fputc(0, writer->f);
+	fputc(0, writer->f);
+	// color 1: also black
+	fputc(0, writer->f);
+	fputc(0, writer->f);
+	fputc(0, writer->f);
+
+	if (delay != 0)
+	{
+		// animation header
+		fputc(0x21, writer->f); // extension
+		fputc(0xff, writer->f); // application specific
+		fputc(11, writer->f); // length 11
+		fputs("NETSCAPE2.0", writer->f); // yes, really
+		fputc(3, writer->f); // 3 bytes of NETSCAPE2.0 data
+
+		fputc(1, writer->f); // JUST BECAUSE
+		fputc(0, writer->f); // loop infinitely (byte 0)
+		fputc(0, writer->f); // loop infinitely (byte 1)
+
+		fputc(0, writer->f); // block terminator
+	}
+
+	return true;
 }
 
 #endif

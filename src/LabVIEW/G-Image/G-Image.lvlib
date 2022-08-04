@@ -13,6 +13,7 @@ https://github.com/dataflowg/g-image</Property>
 </Property>
 	<Item Name="Image IO" Type="Folder">
 		<Item Name="Controls" Type="Folder">
+			<Item Name="Dither Type.ctl" Type="VI" URL="../Image IO/Controls/Dither Type.ctl"/>
 			<Item Name="Image Save Format.ctl" Type="VI" URL="../Image IO/Controls/Image Save Format.ctl"/>
 		</Item>
 		<Item Name="Polymorphic VIs" Type="Folder">
@@ -25,6 +26,8 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Save BMP Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Memory).vi"/>
 			<Item Name="Save BMP Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Path).vi"/>
 			<Item Name="Save BMP Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (UTF-8 Path).vi"/>
+			<Item Name="Save GIF Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save GIF Image (Path).vi"/>
+			<Item Name="Save GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save GIF Image (UTF-8 Path).vi"/>
 			<Item Name="Save JPG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (Memory).vi"/>
 			<Item Name="Save JPG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (Path).vi"/>
 			<Item Name="Save JPG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (UTF-8 Path).vi"/>
@@ -39,12 +42,14 @@ https://github.com/dataflowg/g-image</Property>
 			<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
 			<Item Name="Load Image From File (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (Core).vi"/>
 			<Item Name="Load Image From Memory (Core).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image From Memory (Core).vi"/>
+			<Item Name="Save GIF To File (Core).vi" Type="VI" URL="../Image IO/Private/Save GIF To File (Core).vi"/>
 			<Item Name="Save Image To File (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To File (Core).vim"/>
 			<Item Name="Save Image To Memory (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To Memory (Core).vim"/>
 		</Item>
 		<Item Name="Load Animated GIF Image.vi" Type="VI" URL="../Image IO/Load Animated GIF Image.vi"/>
 		<Item Name="Load Image.vi" Type="VI" URL="../Image IO/Load Image.vi"/>
 		<Item Name="Save BMP Image.vi" Type="VI" URL="../Image IO/Save BMP Image.vi"/>
+		<Item Name="Save GIF Image.vi" Type="VI" URL="../Image IO/Save GIF Image.vi"/>
 		<Item Name="Save JPG Image.vi" Type="VI" URL="../Image IO/Save JPG Image.vi"/>
 		<Item Name="Save PNG Image.vi" Type="VI" URL="../Image IO/Save PNG Image.vi"/>
 		<Item Name="Save TGA Image.vi" Type="VI" URL="../Image IO/Save TGA Image.vi"/>
@@ -58,6 +63,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Indexed Color To True Color Image.vi" Type="VI" URL="../Image Processing/Indexed Color To True Color Image.vi"/>
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>
 		<Item Name="Rotate Image.vi" Type="VI" URL="../Image Processing/Rotate Image.vi"/>
+		<Item Name="True Color To Indexed Color Image.vi" Type="VI" URL="../Image Processing/True Color To Indexed Color Image.vi"/>
 	</Item>
 	<Item Name="Private" Type="Folder">
 		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
@@ -75,5 +81,6 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Remove Image Padding.vi" Type="VI" URL="../Image Processing/Remove Image Padding.vi"/>
 		<Item Name="Result To Error.vi" Type="VI" URL="../Private/Result To Error.vi"/>
 		<Item Name="RGBA To ARGB.vi" Type="VI" URL="../Private/RGBA To ARGB.vi"/>
+		<Item Name="To RGBA.vi" Type="VI" URL="../Private/To RGBA.vi"/>
 	</Item>
 </Library>
