@@ -1,3 +1,53 @@
+/*
+G-Image - A LabVIEW image library.
+
+v0.2.0
+
+Author - Dataflow_G
+GitHub - https://github.com/dataflowg/g-image
+Twitter - https://twitter.com/Dataflow_G
+
+/////////////
+// HISTORY //
+/////////////
+v0.2.0
+- PNG, TGA compression options
+- Image resize options
+- Save GIF, Animated GIF
+- True Color to Indexed Color function
+
+v0.1.0
+- Initial release
+
+/////////////
+// LICENSE //
+/////////////
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org/>
+*/
+
 #ifndef _G_IMAGE_H_
 #define _G_IMAGE_H_
 
@@ -126,9 +176,13 @@ extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr);
 extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t * image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in,
 												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out, int32_t filter);
 
-extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, int32_t dither, uint8_t* image_data_out, uint32_t* colors_out);
+extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, uint32_t dither, uint8_t* image_data_out, uint32_t* colors_out);
 
-gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, dither_type_t dither);
+extern "C" LV_DLL_EXPORT gi_result open_write_gif(const char* file_name, int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr);
+extern "C" LV_DLL_EXPORT gi_result write_gif_frame(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither);
+extern "C" LV_DLL_EXPORT gi_result close_gif(intptr_t writer_ptr);
+
+gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither);
 //////////////////////////
 // Ancilliary Functions //
 //////////////////////////

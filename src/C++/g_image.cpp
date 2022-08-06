@@ -115,7 +115,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 			                  result = stbi_write_png(file_name, width, height, channels, image_data, 0); break;
 		case format_save_jpg: result = stbi_write_jpg(file_name, width, height, channels, image_data, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp(file_name, width, height, channels, image_data); break;
-		case format_save_gif: result = gi_write_gif(file_name, width, height, channels, image_data, *(dither_type_t*)option); break;
+		case format_save_gif: result = gi_write_gif(file_name, width, height, image_data, (dither_type_t)*(uint32_t*)option); break;
 		case format_save_tga: stbi_write_tga_with_rle = *(int32_t*)option;
 							  result = stbi_write_tga(file_name, width, height, channels, image_data); break;
 		default: return GI_E_UNSUPPORTED; break;
@@ -129,7 +129,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 	return GI_SUCCESS;
 }
 
-gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, dither_type_t dither)
+gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither)
 {
 	GifWriter writer = {};
 	bool gif_result = true;
@@ -139,6 +139,61 @@ gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, int
 	gif_result &= GifEnd(&writer);
 
 	if (!gif_result)
+	{
+		return GI_E_FILE;
+	}
+
+	return GI_SUCCESS;
+}
+
+
+extern "C" LV_DLL_EXPORT gi_result open_write_gif(const char* file_name, int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr)
+{
+	bool result;
+
+	GifWriter* writer = (GifWriter*)malloc(sizeof(GifWriter));
+	if (writer == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	result = GifBeginUtf8(writer, file_name, width, height, 1, depth);
+
+	if (!result)
+	{
+		free(writer);
+		return GI_E_FILE;
+	}
+
+	*writer_ptr = (intptr_t)writer;
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result write_gif_frame(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither)
+{
+	bool result;
+
+	result = GifWriteFrame((GifWriter*)writer_ptr, image_data, width, height, delay, 8, (dither_type_t)dither == dither_floyd_steinberg);
+
+	if (!result)
+	{
+		return GI_E_FILE;
+	}
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result close_gif(intptr_t writer_ptr)
+{
+	bool result;
+	GifWriter* writer = (GifWriter*)writer_ptr;
+
+	result = GifEnd(writer);
+	free(writer);
+	writer = NULL;
+
+	if (!result)
 	{
 		return GI_E_FILE;
 	}
@@ -252,7 +307,7 @@ extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t* image_data_in, in
 }
 
 
-extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, int32_t dither, uint8_t* image_data_out, uint32_t* colors_out)
+extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, uint32_t dither, uint8_t* image_data_out, uint32_t* colors_out)
 {
 	if (channels_in < 4)
 	{
@@ -260,7 +315,7 @@ extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_da
 	}
 
 	GifPalette pal;
-	GifMakePalette(NULL, image_data_in, width_in, height_in, depth, dither, &pal);
+	GifMakePalette(NULL, image_data_in, width_in, height_in, depth, (dither_type_t)dither == dither_floyd_steinberg, &pal);
 
 	if (dither)
 		GifDitherImage(NULL, image_data_in, image_data_out, width_in, height_in, &pal);

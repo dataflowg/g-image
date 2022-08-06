@@ -18,16 +18,27 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 </p>
 
 ## <a id="whats-new"></a>What's New?
-* Initial release! See the features section for details.
+* Support saving GIF and animated GIF (with optional dithering)
+* Add PNG compression option when saving
+* Add TGA compression option when saving
+* Image resize filter option
+    * Box, Triangle, Cubic B-Spline, Catmull-Rom, Mitchell
+* Improved PNG compression
+* New image proceesing functions
+    * Flip Image
+    * True Color <-> Indexed Color (with optional dithering)
+* Fix image processing on certain 8-bit images
 
 ## <a id="features"></a>Features
 * Load images from file or from memory in a range of formats, including:
     * PNG, JPEG, BMP, GIF, Animated GIF, TGA, PSD, HDR, PIC, PNM
 * Save images to file or to memory in a range of formats, including:
-    * PNG, JPEG, BMP, TGA
+    * PNG, JPEG, BMP, GIF, Animated GIF, TGA
 * Basic image processing functions:
     * Resize
     * Rotate
+    * Flip
+    * Quantize (True Color to Indexed Color)
 
 ## <a id="installation"></a>Installation
 TBD
@@ -57,7 +68,7 @@ HDR             | :heavy_check_mark:  | :x:
 PIC             | :heavy_check_mark:  | :x:
 PNM             | :heavy_check_mark:  | :x:
 
-¹ *Palettized images (8-bit and below) are supported, but are converted to 24-bit RGB or 32-bit RGBA images. This may change in future updates.*
+¹ *Indexed color images (8-bit and below) are supported, but are converted to 24-bit or 32-bit images. This may change in future updates.*
 
 ² *32-bit images are unsupported.*
 
@@ -68,15 +79,14 @@ Format          | G-Image             | LabVIEW Picture Functions
 ----------------|---------------------|--------------------
 PNG             | :heavy_check_mark:¹ | :heavy_check_mark:
 JPEG            | :heavy_check_mark:  | :heavy_check_mark:
-BMP             | :heavy_check_mark:  | :heavy_check_mark:
-GIF             | :x:                 | :heavy_check_mark:³
-TGA             | :heavy_check_mark:² | :x:
+BMP             | :heavy_check_mark:¹ | :heavy_check_mark:
+GIF             | :heavy_check_mark:  | :heavy_check_mark:²
+Animated GIF    | :heavy_check_mark:  | :x:
+TGA             | :heavy_check_mark:  | :x:
 
-¹ *Images less than 8-bit are converted to 8-bit when saved.*
+¹ *Indexed color images (8-bit and below) are supported, but are converted to 24-bit or 32-bit images. This may change in future updates.*
 
-² *Images are saved with Run Length Encoding (RLE) compression.*
-
-³ *The GIF save function isn't in the palette, but can be found in `<vi.lib>\picture\gif.llb\Write GIF File.vi`*
+² *The GIF save function isn't in the palette, but can be found in `<vi.lib>\picture\gif.llb\Write GIF File.vi`. Only 8-bit images are supported, and are not compressed with LZW compression.*
 
 ## <a id="license"></a>License
 This library is built using public domain image libraries. As such, this library is also made available in the public domain. See [LICENSE](LICENSE) for details.
@@ -90,5 +100,6 @@ Library | Author | Public Domain License
 [stb_image_write.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
 [stb_image_resize.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
 [miniz](https://code.google.com/archive/p/miniz)* | Rich Geldreich | [Unlicense](https://code.google.com/archive/p/miniz)
+[gif-h](https://github.com/charlietangora/gif-h) | Charlie Tangora | [Public Domain](https://github.com/charlietangora/gif-h/blob/master/gif.h)
 
-\*The linked version is public domain. Newer versions of miniz are MIT licensed.
+\*The linked version is public domain, and is the version used in G-Image. Newer versions of miniz are MIT licensed.
