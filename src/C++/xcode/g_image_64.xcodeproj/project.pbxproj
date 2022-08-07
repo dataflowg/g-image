@@ -17,6 +17,7 @@
 		E578CD8A28924979009D41D7 /* framework.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD8028924979009D41D7 /* framework.h */; };
 		E578CD8B28924979009D41D7 /* stb_image_resize.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD8128924979009D41D7 /* stb_image_resize.h */; };
 		E578CD8C28924979009D41D7 /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD8228924979009D41D7 /* stb_image.h */; };
+		E5C6388D28A019F40056E437 /* gif.h in Headers */ = {isa = PBXBuildFile; fileRef = E5C6388C28A019F40056E437 /* gif.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		E578CD8028924979009D41D7 /* framework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework.h; path = ../../framework.h; sourceTree = "<group>"; };
 		E578CD8128924979009D41D7 /* stb_image_resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image_resize.h; path = ../../stb_image_resize.h; sourceTree = "<group>"; };
 		E578CD8228924979009D41D7 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image.h; path = ../../stb_image.h; sourceTree = "<group>"; };
+		E5C6388C28A019F40056E437 /* gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gif.h; path = ../../gif.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		E578CD70289248BB009D41D7 /* g_image */ = {
 			isa = PBXGroup;
 			children = (
+				E5C6388C28A019F40056E437 /* gif.h */,
 				E578CD7B28924978009D41D7 /* dllmain.cpp */,
 				E578CD8028924979009D41D7 /* framework.h */,
 				E578CD7E28924978009D41D7 /* g_image.cpp */,
@@ -87,6 +90,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E578CD8628924979009D41D7 /* stb_image_write.h in Headers */,
+				E5C6388D28A019F40056E437 /* gif.h in Headers */,
 				E578CD73289248BB009D41D7 /* xcode.h in Headers */,
 				E578CD8B28924979009D41D7 /* stb_image_resize.h in Headers */,
 				E578CD8428924979009D41D7 /* g_image.h in Headers */,

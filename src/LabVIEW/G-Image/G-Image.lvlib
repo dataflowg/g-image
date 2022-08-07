@@ -24,6 +24,7 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Load Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Path).vi"/>
 			<Item Name="Load Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (UTF-8 Path).vi"/>
 			<Item Name="Save Animated GIF Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (Path).vi"/>
+			<Item Name="Save Animated GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (UTF-8 Path).vi"/>
 			<Item Name="Save BMP Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Memory).vi"/>
 			<Item Name="Save BMP Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Path).vi"/>
 			<Item Name="Save BMP Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (UTF-8 Path).vi"/>
@@ -88,5 +89,4 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="RGBA To ARGB.vi" Type="VI" URL="../Private/RGBA To ARGB.vi"/>
 		<Item Name="To RGBA.vi" Type="VI" URL="../Private/To RGBA.vi"/>
 	</Item>
-	<Item Name="Save Animated GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (UTF-8 Path).vi"/>
 </Library>

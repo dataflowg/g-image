@@ -1,7 +1,7 @@
-<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2022-08-06 14:49:22" Creator="Dataflow_G" Comments="" ID="10011a40f21707f31a0d167e66e5d083">
+<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2022-08-07 17:05:17" Creator="Dataflow_G" Comments="" ID="3676ac65cd74d32c11d1df42a6966269">
   <Library_General_Settings>
     <Package_File_Name>Dataflow_G_lib_G_Image</Package_File_Name>
-    <Library_Version>0.1.0.2</Library_Version>
+    <Library_Version>0.2.0.2</Library_Version>
     <Auto_Increment_Version>false</Auto_Increment_Version>
     <Library_Source_Folder>..</Library_Source_Folder>
     <Library_Output_Folder>.</Library_Output_Folder>
@@ -41,7 +41,16 @@ Features include:
       <Copyright>Public domain</Copyright>
       <Packager/>
       <URL>https://github.com/dataflowg/g-image</URL>
-      <Release_Notes>* Initial release</Release_Notes>
+      <Release_Notes>* Support saving GIF and animated GIF (with optional dithering)
+* Add PNG compression option when saving
+* Add TGA compression option when saving
+* Image resize filter option
+** Box, Triangle, Cubic B-Spline, Catmull-Rom, Mitchell
+* Improved PNG compression
+* New image processing functions
+** Flip Image
+** True Color &lt;-&gt; Indexed Color (with optional dithering)
+* Fix image processing on certain 8-bit images</Release_Notes>
     </Description>
     <Destinations>
       <Toolkit_VIs>
@@ -271,7 +280,7 @@ Features include:
         <Path>..\Examples</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>759EC0CFC5670318D90D50DEE1E5762E</GUID>
+      <GUID>3C3ACDA278E6CFC00487268F9CACC89A</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -404,7 +413,7 @@ Features include:
         <Path>..\G-Image\Image IO\Save GIF Image.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>0C26AF6C539612313561E2CD1A24A0F2</GUID>
+      <GUID>32AFD3099654F334D2978DC19CEA7280</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -495,7 +504,7 @@ Features include:
         <Path>..\G-Image\Image Processing\True Color To Indexed Color Image.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>0DE420EF51A194640A030B9C5C14EC8E</GUID>
+      <GUID>68F7CB4ECF4D4CCC168C5585F914BFAC</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -558,7 +567,21 @@ Features include:
         <Path>..\G-Image\Examples\Animated GIF Example.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>608D46E30AD178552A11068ADB5ECC50</GUID>
+      <Items_Data>
+        <Type>Item</Type>
+        <Sub_Palette_Index>-1</Sub_Palette_Index>
+        <NameSub_Menu_Name>Save Animated GIF Example.vi</NameSub_Menu_Name>
+        <Short_Name/>
+        <is_Merge_VI>false</is_Merge_VI>
+        <Position>
+          <Row>1</Row>
+          <Column>4</Column>
+        </Position>
+        <Icon>00000000</Icon>
+        <Path>..\G-Image\Examples\Save Animated GIF Example.vi</Path>
+        <VI_Title/>
+      </Items_Data>
+      <GUID>DBE11965E904C8960665200F9CA91133</GUID>
     </Functions_Palette_Data>
   </Library_Palette_Definition>
 </VI_Package_Builder_Settings>

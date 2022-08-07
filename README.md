@@ -24,7 +24,7 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 * Image resize filter option
     * Box, Triangle, Cubic B-Spline, Catmull-Rom, Mitchell
 * Improved PNG compression
-* New image proceesing functions
+* New image processing functions
     * Flip Image
     * True Color <-> Indexed Color (with optional dithering)
 * Fix image processing on certain 8-bit images

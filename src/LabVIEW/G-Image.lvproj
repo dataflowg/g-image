@@ -70,6 +70,7 @@
 			<Item Name="Animated GIF Example.vi" Type="VI" URL="../G-Image/Examples/Animated GIF Example.vi"/>
 			<Item Name="Image Resize Example.vi" Type="VI" URL="../G-Image/Examples/Image Resize Example.vi"/>
 			<Item Name="Image Rotation Example.vi" Type="VI" URL="../G-Image/Examples/Image Rotation Example.vi"/>
+			<Item Name="Save Animated GIF Example.vi" Type="VI" URL="../G-Image/Examples/Save Animated GIF Example.vi"/>
 		</Item>
 		<Item Name="Unit Tests" Type="Folder">
 			<Item Name="Test Load BMP (Memory).vi" Type="VI" URL="../Unit Tests/Test Load BMP (Memory).vi"/>
@@ -84,7 +85,6 @@
 			<Item Name="Test Load TGA (Path).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Path).vi"/>
 		</Item>
 		<Item Name="G-Image.lvlib" Type="Library" URL="../G-Image/G-Image.lvlib"/>
-		<Item Name="test.vi" Type="VI" URL="../../../../../../Users/Dataflow_G/Desktop/test/test.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="Application Directory.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Application Directory.vi"/>
@@ -93,10 +93,11 @@
 				<Item Name="Create Mask By Alpha.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Create Mask By Alpha.vi"/>
 				<Item Name="Draw Flattened Pixmap.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Draw Flattened Pixmap.vi"/>
 				<Item Name="Error Cluster From Error Code.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Error Cluster From Error Code.vi"/>
+				<Item Name="ex_CorrectErrorChain.vi" Type="VI" URL="/&lt;vilib&gt;/express/express shared/ex_CorrectErrorChain.vi"/>
 				<Item Name="FixBadRect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/pictutil.llb/FixBadRect.vi"/>
 				<Item Name="imagedata.ctl" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/imagedata.ctl"/>
 				<Item Name="NI_FileType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/lvfile.llb/NI_FileType.lvlib"/>
-				<Item Name="RGB to Color.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/colorconv.llb/RGB to Color.vi"/>
+				<Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi"/>
 			</Item>
 			<Item Name="g_image_32.dll" Type="Document" URL="../G-Image/lib/g_image_32.dll"/>
 		</Item>
