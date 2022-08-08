@@ -1,5 +1,5 @@
 # G-Image Release History
-### v0.2.0 - 2022-08-xx
+### v0.2.0 - 2022-08-08
 * Support saving GIF and animated GIF (with optional dithering)
 * Add PNG compression option when saving
 * Add TGA compression option when saving
