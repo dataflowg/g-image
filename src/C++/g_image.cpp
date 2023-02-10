@@ -321,8 +321,8 @@ void save_callback(void *context, void *data, int size)
 
 	if (callback_data->image_data_count + size > callback_data->image_data_size)
 	{
-		// Increase memory allocation by an additional 50%
-		size_t resize = (size_t)(callback_data->image_data_size * 1.5);
+		// Allocate required image memory + 25%, to try minimize repeat allocation on potential next call
+		size_t resize = (size_t)((callback_data->image_data_count + size) * 1.25);
 		uint8_t* temp_ptr = (uint8_t*)realloc(callback_data->image_data, resize);
 
 		if (temp_ptr == NULL)
@@ -347,8 +347,8 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 	int result;
 	save_callback_data_t callback_data;
 
-	// Start with a small memory allocation, callback will reallocate as necessary.
-	callback_data.image_data_size = width * height * channels / 10;
+	// Start with a small memory allocation (25% of uncompressed), callback will reallocate as necessary.
+	callback_data.image_data_size = width * height * channels / 4;
 	callback_data.image_data = (uint8_t*)malloc(callback_data.image_data_size);
 	callback_data.image_data_count = 0;
 	
