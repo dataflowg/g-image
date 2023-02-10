@@ -15,6 +15,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Controls" Type="Folder">
 			<Item Name="Dither Type.ctl" Type="VI" URL="../Image IO/Controls/Dither Type.ctl"/>
 			<Item Name="Image Save Format.ctl" Type="VI" URL="../Image IO/Controls/Image Save Format.ctl"/>
+			<Item Name="Units.ctl" Type="VI" URL="../Image IO/Controls/Units.ctl"/>
 		</Item>
 		<Item Name="Polymorphic VIs" Type="Folder">
 			<Item Name="Load Animated GIF Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Animated GIF Image (Memory).vi"/>
@@ -23,6 +24,9 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Load Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Memory).vi"/>
 			<Item Name="Load Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Path).vi"/>
 			<Item Name="Load Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (UTF-8 Path).vi"/>
+			<Item Name="Load SVG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load SVG Image (Memory).vi"/>
+			<Item Name="Load SVG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load SVG Image (Path).vi"/>
+			<Item Name="Load SVG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load SVG Image (UTF-8 Path).vi"/>
 			<Item Name="Save Animated GIF Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (Path).vi"/>
 			<Item Name="Save Animated GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (UTF-8 Path).vi"/>
 			<Item Name="Save BMP Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Memory).vi"/>
@@ -44,12 +48,15 @@ https://github.com/dataflowg/g-image</Property>
 			<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
 			<Item Name="Load Image From File (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (Core).vi"/>
 			<Item Name="Load Image From Memory (Core).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image From Memory (Core).vi"/>
+			<Item Name="Load SVG From File (Core).vi" Type="VI" URL="../Image IO/Private/Load SVG From File (Core).vi"/>
+			<Item Name="Load SVG From Memory (Core).vi" Type="VI" URL="../Image IO/Private/Load SVG From Memory (Core).vi"/>
 			<Item Name="Save Animated GIF To File (Core).vi" Type="VI" URL="../Image IO/Private/Save Animated GIF To File (Core).vi"/>
 			<Item Name="Save Image To File (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To File (Core).vim"/>
 			<Item Name="Save Image To Memory (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To Memory (Core).vim"/>
 		</Item>
 		<Item Name="Load Animated GIF Image.vi" Type="VI" URL="../Image IO/Load Animated GIF Image.vi"/>
 		<Item Name="Load Image.vi" Type="VI" URL="../Image IO/Load Image.vi"/>
+		<Item Name="Load SVG Image.vi" Type="VI" URL="../Image IO/Load SVG Image.vi"/>
 		<Item Name="Save Animated GIF Image.vi" Type="VI" URL="../Image IO/Save Animated GIF Image.vi"/>
 		<Item Name="Save BMP Image.vi" Type="VI" URL="../Image IO/Save BMP Image.vi"/>
 		<Item Name="Save GIF Image.vi" Type="VI" URL="../Image IO/Save GIF Image.vi"/>
@@ -62,6 +69,7 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Flip Direction.ctl" Type="VI" URL="../Image Processing/Controls/Flip Direction.ctl"/>
 			<Item Name="Resize Filter.ctl" Type="VI" URL="../Image Processing/Controls/Resize Filter.ctl"/>
 		</Item>
+		<Item Name="Find Nearest Color.vi" Type="VI" URL="../Image Processing/Find Nearest Color.vi"/>
 		<Item Name="Flip Image.vi" Type="VI" URL="../Image Processing/Flip Image.vi"/>
 		<Item Name="Indexed Color To True Color Image.vi" Type="VI" URL="../Image Processing/Indexed Color To True Color Image.vi"/>
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>

@@ -93,6 +93,12 @@ unsigned char* compress_for_stbiw(unsigned char *data, int data_len, int *out_le
 
 #include "gif.h"
 
+#define NANOSVG_IMPLEMENTATION
+#include "nanosvg.h"
+
+#define NANOSVGRAST_IMPLEMENTATION
+#include "nanosvgrast.h"
+
 #if defined(_WIN32)
 #define LV_DLL_IMPORT  __declspec(dllimport)
 #define LV_DLL_EXPORT  __declspec(dllexport)
@@ -108,6 +114,10 @@ unsigned char* compress_for_stbiw(unsigned char *data, int data_len, int *out_le
 #define LV_DLL_PRIVATE static
 #endif
 #endif
+
+#define GI_PI           3.14159265358979323846
+#define GI_DEG_TO_RAD   0.01745329251994329577
+#define GI_RAD_TO_DEG  57.29577951308232087685
 
 typedef int32_t gi_result;
 
@@ -164,10 +174,13 @@ extern "C" LV_DLL_EXPORT int32_t clfn_abort(void* data);
 ///////////////////////
 // LabVIEW image API //
 ///////////////////////
-extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image);
+extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image_out);
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_size, intptr_t* image_out);
 extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr);
 gi_result free_image(gi_image_t* image);
+
+extern "C" LV_DLL_EXPORT gi_result load_svg_from_file(const char* file_name, float scale, intptr_t* image_out);
+extern "C" LV_DLL_EXPORT gi_result load_svg_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, float scale, intptr_t* image_out);
 
 extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option);
 extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, void* option, intptr_t* image_data_out, int32_t* image_data_count_out);
@@ -175,6 +188,8 @@ extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr);
 
 extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t * image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in,
 												int32_t width_resize, int32_t height_resize, uint8_t* image_data_out, int32_t filter);
+extern "C" LV_DLL_EXPORT gi_result rotate_image(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t row_stride,
+												double angle, uint8_t* image_data_out);
 
 extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, uint32_t dither, uint8_t* image_data_out, uint32_t* colors_out);
 
@@ -284,6 +299,56 @@ bool GifBeginUtf8(GifWriter* writer, const char* filename, uint32_t width, uint3
 	}
 
 	return true;
+}
+
+NSVGimage* nsvgParseFromFileUtf8(const char* filename, const char* units, float dpi)
+{
+	FILE* fp = NULL;
+	size_t size;
+	char* data = NULL;
+	NSVGimage* image = NULL;
+
+	fp = stbi__fopen(filename, "rb");
+	if (!fp) goto error;
+	fseek(fp, 0, SEEK_END);
+	size = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+	data = (char*)malloc(size + 1);
+	if (data == NULL) goto error;
+	if (fread(data, 1, size, fp) != size) goto error;
+	data[size] = '\0';	// Must be null terminated.
+	fclose(fp);
+	image = nsvgParse(data, units, dpi);
+	free(data);
+
+	return image;
+
+error:
+	if (fp) fclose(fp);
+	if (data) free(data);
+	if (image) nsvgDelete(image);
+	return NULL;
+}
+
+NSVGimage* nsvgParseFromMemory(const uint8_t* encoded_image, int32_t encoded_image_count, const char* units, float dpi)
+{
+	size_t size = encoded_image_count;
+	char* data = NULL;
+	NSVGimage* image = NULL;
+
+	data = (char*)malloc(size + 1);
+	if (data == NULL) goto error;
+	memcpy(data, encoded_image, size);
+	data[size] = '\0';	// Must be null terminated.
+	image = nsvgParse(data, units, dpi);
+	free(data);
+
+	return image;
+
+error:
+	if (data) free(data);
+	if (image) nsvgDelete(image);
+	return NULL;
 }
 
 #endif

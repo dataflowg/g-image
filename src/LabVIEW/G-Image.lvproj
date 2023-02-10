@@ -71,6 +71,7 @@
 			<Item Name="Image Resize Example.vi" Type="VI" URL="../G-Image/Examples/Image Resize Example.vi"/>
 			<Item Name="Image Rotation Example.vi" Type="VI" URL="../G-Image/Examples/Image Rotation Example.vi"/>
 			<Item Name="Save Animated GIF Example.vi" Type="VI" URL="../G-Image/Examples/Save Animated GIF Example.vi"/>
+			<Item Name="SVG Scale Example.vi" Type="VI" URL="../G-Image/Examples/SVG Scale Example.vi"/>
 		</Item>
 		<Item Name="Unit Tests" Type="Folder">
 			<Item Name="Test Load BMP (Memory).vi" Type="VI" URL="../Unit Tests/Test Load BMP (Memory).vi"/>
@@ -81,6 +82,8 @@
 			<Item Name="Test Load JPG (Path).vi" Type="VI" URL="../Unit Tests/Test Load JPG (Path).vi"/>
 			<Item Name="Test Load PNG (Memory).vi" Type="VI" URL="../Unit Tests/Test Load PNG (Memory).vi"/>
 			<Item Name="Test Load PNG (Path).vi" Type="VI" URL="../Unit Tests/Test Load PNG (Path).vi"/>
+			<Item Name="Test Load SVG (Memory).vi" Type="VI" URL="../Unit Tests/Test Load SVG (Memory).vi"/>
+			<Item Name="Test Load SVG (Path).vi" Type="VI" URL="../Unit Tests/Test Load SVG (Path).vi"/>
 			<Item Name="Test Load TGA (Memory).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Memory).vi"/>
 			<Item Name="Test Load TGA (Path).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Path).vi"/>
 		</Item>
@@ -95,8 +98,13 @@
 				<Item Name="Error Cluster From Error Code.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Error Cluster From Error Code.vi"/>
 				<Item Name="ex_CorrectErrorChain.vi" Type="VI" URL="/&lt;vilib&gt;/express/express shared/ex_CorrectErrorChain.vi"/>
 				<Item Name="FixBadRect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/pictutil.llb/FixBadRect.vi"/>
+				<Item Name="Get File Extension.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/libraryn.llb/Get File Extension.vi"/>
 				<Item Name="imagedata.ctl" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/imagedata.ctl"/>
+				<Item Name="LVPointTypeDef.ctl" Type="VI" URL="/&lt;vilib&gt;/Utility/miscctls.llb/LVPointTypeDef.ctl"/>
 				<Item Name="NI_FileType.lvlib" Type="Library" URL="/&lt;vilib&gt;/Utility/lvfile.llb/NI_FileType.lvlib"/>
+				<Item Name="Set Cursor (Cursor ID).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor (Cursor ID).vi"/>
+				<Item Name="Set Cursor (Icon Pict).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor (Icon Pict).vi"/>
+				<Item Name="Set Cursor.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor.vi"/>
 				<Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi"/>
 			</Item>
 			<Item Name="g_image_32.dll" Type="Document" URL="../G-Image/lib/g_image_32.dll"/>

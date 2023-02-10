@@ -18,20 +18,14 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 </p>
 
 ## <a id="whats-new"></a>What's New?
-* Support saving GIF and animated GIF (with optional dithering)
-* Add PNG compression option when saving
-* Add TGA compression option when saving
-* Image resize filter option
-    * Box, Triangle, Cubic B-Spline, Catmull-Rom, Mitchell
-* Improved PNG compression
-* New image processing functions
-    * Flip Image
-    * True Color <-> Indexed Color (with optional dithering)
-* Fix image processing on certain 8-bit images
+* Basic support for loading Scalable Vector Graphics (SVG)
+    * Path based vectors only
+* Image rotation implemented in C (~2x performance boost)
+* Fix when loading certain 8-bit images
 
 ## <a id="features"></a>Features
 * Load images from file or from memory in a range of formats, including:
-    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, PSD, HDR, PIC, PNM
+    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, SVG, PSD, HDR, PIC, PNM
 * Save images to file or to memory in a range of formats, including:
     * PNG, JPEG, BMP, GIF, Animated GIF, TGA
 * Basic image processing functions:
@@ -59,10 +53,11 @@ Format          | G-Image             | LabVIEW Picture Functions
 ----------------|---------------------|--------------------
 PNG             | :heavy_check_mark:¹ | :heavy_check_mark:
 JPEG            | :heavy_check_mark:  | :heavy_check_mark:
-BMP             | :heavy_check_mark:¹ | :heavy_check_mark:²
+BMP             | :heavy_check_mark:¹ | :heavy_check_mark:³
 GIF             | :heavy_check_mark:¹ | :x:
 Animated GIF    | :heavy_check_mark:¹ | :x:
 TGA             | :heavy_check_mark:  | :x:
+SVG             | :heavy_check_mark:² | :x:
 PSD             | :heavy_check_mark:  | :x:
 HDR             | :heavy_check_mark:  | :x:
 PIC             | :heavy_check_mark:  | :x:
@@ -70,7 +65,9 @@ PNM             | :heavy_check_mark:  | :x:
 
 ¹ *Indexed color images (8-bit and below) are supported, but are converted to 24-bit or 32-bit images. This may change in future updates.*
 
-² *32-bit images are unsupported.*
+² *Only paths are supported.*
+
+³ *32-bit images are unsupported.*
 
 ### Image Saving
 In addition to saving the formats below to a file, G-Image supports saving images directly in memory.
@@ -89,17 +86,20 @@ TGA             | :heavy_check_mark:  | :x:
 ² *The GIF save function isn't in the palette, but can be found in `<vi.lib>\picture\gif.llb\Write GIF File.vi`. Only 8-bit images are supported, and are not compressed with LZW compression.*
 
 ## <a id="license"></a>License
-This library is built using public domain image libraries. As such, this library is also made available in the public domain. See [LICENSE](LICENSE) for details.
+This library is built using public domain image libraries where possible. As such, this library is also made available in the public domain. See [LICENSE](LICENSE) for details.
+
+Not all libraries used by G-Image are public domain, but are licensed using open source permissive licenses.
 
 ## <a id="acknowledgments"></a>Acknowledgments
-This library uses the following public domain libraries. Massive thanks to these authors.
+This library uses the following open source libraries. Massive thanks to these authors.
 
-Library | Author | Public Domain License
+Library | Author | License
 --------|--------|----------------------
 [stb_image.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
 [stb_image_write.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
 [stb_image_resize.h](https://github.com/nothings/stb) | Sean Barrett | [Unlicense / MIT](https://github.com/nothings/stb/blob/master/LICENSE)
-[miniz](https://code.google.com/archive/p/miniz)* | Rich Geldreich | [Unlicense](https://code.google.com/archive/p/miniz)
+[miniz](https://code.google.com/archive/p/miniz)¹ | Rich Geldreich | [Unlicense](https://code.google.com/archive/p/miniz)
 [gif-h](https://github.com/charlietangora/gif-h) | Charlie Tangora | [Public Domain](https://github.com/charlietangora/gif-h/blob/master/gif.h)
+[nanosvg](https://github.com/memononen/nanosvg) | Mikko Mononen | [zlib](https://github.com/memononen/nanosvg/blob/master/LICENSE.txt)
 
-\*The linked version is public domain, and is the version used in G-Image. Newer versions of miniz are MIT licensed.
+¹ *The linked version is public domain, and is the version used in G-Image. Newer versions of miniz are MIT licensed.*
