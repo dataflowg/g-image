@@ -1,4 +1,11 @@
 # G-Image Release History
+### v0.3.0 - 2023-02-13
+* Basic support for loading Scalable Vector Graphics (SVG)
+    * Path based vectors only
+* Image rotation performance improvement
+* Fix when loading certain 8-bit images
+* Fix crash when saving images to memory
+
 ### v0.2.0 - 2022-08-08
 * Support saving GIF and animated GIF (with optional dithering)
 * Add PNG compression option when saving

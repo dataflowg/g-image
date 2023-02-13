@@ -37,6 +37,12 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 		return GI_E_GENERIC;
 	}
 
+	// If the image is less than 24-bit, assume it's 24-bit as we've requested 4 color components from stb_image
+	if (n < 3)
+	{
+		n = 3;
+	}
+
 	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
 	image->width = x;
 	image->height = y;
@@ -70,6 +76,12 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 		return GI_E_GENERIC;
 	}
 
+	// If the image is less than 24-bit, assume it's 24-bit as we've requested 4 color components from stb_image
+	if (n < 3)
+	{
+		n = 3;
+	}
+
 	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
 	image->width = x;
 	image->height = y;
@@ -100,6 +112,102 @@ gi_result free_image(gi_image_t* image)
 		free(image);
 		image = NULL;
 	}
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result load_svg_from_file(const char* file_name, float scale, intptr_t* image_out)
+{
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	// Just use px/96 to load. The rasterizer will control the final image size
+	NSVGimage* svg = nsvgParseFromFileUtf8(file_name, "px", 96.0);
+
+	if (svg == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	// Create rasterizer (can be used to render multiple images).
+	struct NSVGrasterizer* rast = nsvgCreateRasterizer();
+
+	if (rast == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int width = svg->width * scale;
+	int height = svg->height * scale;
+
+	// Allocate memory for image
+	uint8_t* image_data = (uint8_t*)malloc(width * height * 4);
+	// Rasterize
+	nsvgRasterize(rast, svg, 0, 0, scale, image_data, width, height, width * 4);
+
+	image->data = image_data;
+	image->data_size = width * height * 4;
+	image->width = width;
+	image->height = height;
+	image->depth = 32;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+	*image_out = (intptr_t)image;
+
+	nsvgDeleteRasterizer(rast);
+	nsvgDelete(svg);
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result load_svg_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, float scale, intptr_t* image_out)
+{
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	// Just use px/96 to load. The rasterizer will control the final image size
+	NSVGimage* svg = nsvgParseFromMemory(encoded_image, encoded_image_count, "px", 96.0);
+
+	if (svg == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	// Create rasterizer (can be used to render multiple images).
+	struct NSVGrasterizer* rast = nsvgCreateRasterizer();
+
+	if (rast == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int width = svg->width * scale;
+	int height = svg->height * scale;
+
+	// Allocate memory for image
+	uint8_t* image_data = (uint8_t*)malloc(width * height * 4);
+	// Rasterize
+	nsvgRasterize(rast, svg, 0, 0, scale, image_data, width, height, width * 4);
+
+	image->data = image_data;
+	image->data_size = width * height * 4;
+	image->width = width;
+	image->height = height;
+	image->depth = 32;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+	*image_out = (intptr_t)image;
+
+	nsvgDeleteRasterizer(rast);
+	nsvgDelete(svg);
 
 	return GI_SUCCESS;
 }
@@ -213,8 +321,8 @@ void save_callback(void *context, void *data, int size)
 
 	if (callback_data->image_data_count + size > callback_data->image_data_size)
 	{
-		// Increase memory allocation by an additional 50%
-		size_t resize = (size_t)(callback_data->image_data_size * 1.5);
+		// Allocate required image memory + 25%, to try minimize repeat allocation on potential next call
+		size_t resize = (size_t)((callback_data->image_data_count + size) * 1.25);
 		uint8_t* temp_ptr = (uint8_t*)realloc(callback_data->image_data, resize);
 
 		if (temp_ptr == NULL)
@@ -239,8 +347,8 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 	int result;
 	save_callback_data_t callback_data;
 
-	// Start with a small memory allocation, callback will reallocate as necessary.
-	callback_data.image_data_size = width * height * channels / 10;
+	// Start with a small memory allocation (25% of uncompressed), callback will reallocate as necessary.
+	callback_data.image_data_size = width * height * channels / 4;
 	callback_data.image_data = (uint8_t*)malloc(callback_data.image_data_size);
 	callback_data.image_data_count = 0;
 	
@@ -301,6 +409,50 @@ extern "C" LV_DLL_EXPORT gi_result resize_image(const uint8_t* image_data_in, in
 	if (result != 1)
 	{
 		return GI_E_GENERIC;
+	}
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result rotate_image(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t row_stride, double angle, uint8_t* image_data_out)
+{
+	double rotation_matrix[2][2];
+	double translate_x;
+	double translate_y;
+	double rotated_x;
+	double rotated_y;
+	int32_t pixel_x;
+	int32_t pixel_y;
+	int32_t row_offset;
+	double center_x = width_in / 2.0;
+	double center_y = height_in / 2.0;
+
+	double angle_rad = angle * GI_DEG_TO_RAD;
+	rotation_matrix[0][0] = cos(angle_rad);
+	rotation_matrix[0][1] = -sin(angle_rad);
+	rotation_matrix[1][0] = -rotation_matrix[0][1]; // sin(angle_rad)
+	rotation_matrix[1][1] = rotation_matrix[0][0];  // cos(angle_rad)
+
+	for (int y = 0; y < height_in; y++)
+	{
+		row_offset = row_stride * y;
+		for (int x = 0; x < width_in; x++)
+		{
+			// Translate the pixel location by the center of rotation
+			translate_x = x - center_x;
+			translate_y = y - center_y;
+			// Calculate the rotated pixel location
+			rotated_x = translate_x * rotation_matrix[0][0] + translate_y * rotation_matrix[0][1];
+			rotated_y = translate_x * rotation_matrix[1][0] + translate_y * rotation_matrix[1][1];
+			// Translate the rotated pixel back from the center of rotation
+			pixel_x = (int)(rotated_x + center_x);
+			pixel_y = (int)(rotated_y + center_y);
+			// Check the new pixel location is within the bounds of the original image
+			if (pixel_x >= 0 && pixel_x < width_in && pixel_y >= 0 && pixel_y < height_in)
+			{
+				memcpy(image_data_out + row_offset + (x * channels_in), image_data_in + pixel_y * row_stride + (pixel_x * channels_in), channels_in * sizeof(uint8_t));
+			}
+		}
 	}
 
 	return GI_SUCCESS;
