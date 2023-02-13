@@ -5,6 +5,9 @@
 <p align="center">
 A cross-platform LabVIEW library for loading, saving, and processing images.
 </p>
+<p align="center">
+<a href="https://www.vipm.io/package/dataflow_g_lib_g_image/"> <img src="https://www.vipm.io/package/dataflow_g_lib_g_image/badge.svg?metric=installs"></a> <a href="https://www.vipm.io/package/dataflow_g_lib_g_image/"><img src="https://www.vipm.io/package/dataflow_g_lib_g_image/badge.svg?metric=stars"></a>
+</p>
 
 <p align="center">
     <a href="#whats-new">What's New?</a> -
