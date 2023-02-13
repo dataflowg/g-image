@@ -20,8 +20,9 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 ## <a id="whats-new"></a>What's New?
 * Basic support for loading Scalable Vector Graphics (SVG)
     * Path based vectors only
-* Image rotation implemented in C (~2x performance boost)
+* Image rotation performance improvement
 * Fix when loading certain 8-bit images
+* Fix crash when saving images to memory
 
 ## <a id="features"></a>Features
 * Load images from file or from memory in a range of formats, including:
