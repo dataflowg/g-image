@@ -1,7 +1,7 @@
 /*
 G-Image - A LabVIEW image library.
 
-v0.2.0
+v0.4.0
 
 Author - Dataflow_G
 GitHub - https://github.com/dataflowg/g-image
@@ -99,6 +99,9 @@ unsigned char* compress_for_stbiw(unsigned char *data, int data_len, int *out_le
 #define NANOSVGRAST_IMPLEMENTATION
 #include "nanosvgrast.h"
 
+#define QOI_IMPLEMENTATION
+#include "qoi.h"
+
 #if defined(_WIN32)
 #define LV_DLL_IMPORT  __declspec(dllimport)
 #define LV_DLL_EXPORT  __declspec(dllexport)
@@ -150,6 +153,7 @@ typedef enum
 	format_save_bmp,
 	format_save_gif,
 	format_save_tga,
+	format_save_qoi,
 	format_save_count
 } image_format_save_t;
 
@@ -197,7 +201,16 @@ extern "C" LV_DLL_EXPORT gi_result open_write_gif(const char* file_name, int32_t
 extern "C" LV_DLL_EXPORT gi_result write_gif_frame(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither);
 extern "C" LV_DLL_EXPORT gi_result close_gif(intptr_t writer_ptr);
 
-gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither);
+gi_result gi_read_image_from_file(const char* file_name, gi_image_t* image);
+gi_result gi_read_qoi_from_file(const char* file_name, gi_image_t* image);
+bool gi_is_qoi_file(const char* file_name);
+gi_result gi_read_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image);
+gi_result gi_read_qoi_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image);
+bool gi_is_qoi_memory(const uint8_t* encoded_image, int32_t encoded_image_count);
+
+int32_t gi_write_qoi(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data);
+int32_t gi_save_qoi_to_memory(int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, save_callback_data_t* callback_data);
+int32_t gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither);
 //////////////////////////
 // Ancilliary Functions //
 //////////////////////////
@@ -349,6 +362,66 @@ error:
 	if (data) free(data);
 	if (image) nsvgDelete(image);
 	return NULL;
+}
+
+int qoi_write_utf8(const char *filename, const void *data, const qoi_desc *desc)
+{
+	FILE *f = stbiw__fopen(filename, "wb");
+	int size;
+	void *encoded;
+
+	if (!f)
+	{
+		return 0;
+	}
+
+	encoded = qoi_encode(data, desc, &size);
+	if (!encoded)
+	{
+		fclose(f);
+		return 0;
+	}
+
+	fwrite(encoded, 1, size, f);
+	fclose(f);
+
+	QOI_FREE(encoded);
+	return size;
+}
+
+void *qoi_read_utf8(const char *filename, qoi_desc *desc, int channels)
+{
+	FILE *f = stbi__fopen(filename, "rb");
+	int size, bytes_read;
+	void *pixels, *data;
+
+	if (!f)
+	{
+		return NULL;
+	}
+
+	fseek(f, 0, SEEK_END);
+	size = ftell(f);
+	if (size <= 0)
+	{
+		fclose(f);
+		return NULL;
+	}
+	fseek(f, 0, SEEK_SET);
+
+	data = QOI_MALLOC(size);
+	if (!data)
+	{
+		fclose(f);
+		return NULL;
+	}
+
+	bytes_read = fread(data, 1, size, f);
+	fclose(f);
+
+	pixels = qoi_decode(data, bytes_read, desc, channels);
+	QOI_FREE(data);
+	return pixels;
 }
 
 #endif

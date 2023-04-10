@@ -40,6 +40,9 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Save PNG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (Memory).vi"/>
 			<Item Name="Save PNG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (Path).vi"/>
 			<Item Name="Save PNG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save PNG Image (UTF-8 Path).vi"/>
+			<Item Name="Save QOI Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save QOI Image (Memory).vi"/>
+			<Item Name="Save QOI Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save QOI Image (Path).vi"/>
+			<Item Name="Save QOI Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save QOI Image (UTF-8 Path).vi"/>
 			<Item Name="Save TGA Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save TGA Image (Memory).vi"/>
 			<Item Name="Save TGA Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save TGA Image (Path).vi"/>
 			<Item Name="Save TGA Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save TGA Image (UTF-8 Path).vi"/>
@@ -62,6 +65,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Save GIF Image.vi" Type="VI" URL="../Image IO/Save GIF Image.vi"/>
 		<Item Name="Save JPG Image.vi" Type="VI" URL="../Image IO/Save JPG Image.vi"/>
 		<Item Name="Save PNG Image.vi" Type="VI" URL="../Image IO/Save PNG Image.vi"/>
+		<Item Name="Save QOI Image.vi" Type="VI" URL="../Image IO/Save QOI Image.vi"/>
 		<Item Name="Save TGA Image.vi" Type="VI" URL="../Image IO/Save TGA Image.vi"/>
 	</Item>
 	<Item Name="Image Processing" Type="Folder">

@@ -1,4 +1,11 @@
 # G-Image Release History
+### v0.4.0 - 2023-04-xx
+* Support for reading and writing QOI ('Quite OK Image Format') images
+    * Lossless 24-bit and 32-bit image type with fast encode + decode
+* Fix incorrect error output when saving GIF files
+* Misc. VI doc updates
+* Update stb_image.h to v2.28
+
 ### v0.3.0 - 2023-02-13
 * Basic support for loading Scalable Vector Graphics (SVG)
     * Path based vectors only

@@ -18,17 +18,17 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 </p>
 
 ## <a id="whats-new"></a>What's New?
-* Basic support for loading Scalable Vector Graphics (SVG)
-    * Path based vectors only
-* Image rotation performance improvement
-* Fix when loading certain 8-bit images
-* Fix crash when saving images to memory
+* Support for reading and writing QOI ('Quite OK Image Format') images
+    * Lossless 24-bit and 32-bit image type with fast encode + decode
+* Fix incorrect error output when saving GIF files
+* Misc. VI doc updates
+* Update stb_image.h to v2.28
 
 ## <a id="features"></a>Features
 * Load images from file or from memory in a range of formats, including:
-    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, SVG, PSD, HDR, PIC, PNM
+    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, SVG, PSD, HDR, PIC, PNM, QOI
 * Save images to file or to memory in a range of formats, including:
-    * PNG, JPEG, BMP, GIF, Animated GIF, TGA
+    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, QOI
 * Basic image processing functions:
     * Resize
     * Rotate
@@ -63,6 +63,7 @@ PSD             | :heavy_check_mark:  | :x:
 HDR             | :heavy_check_mark:  | :x:
 PIC             | :heavy_check_mark:  | :x:
 PNM             | :heavy_check_mark:  | :x:
+QOI             | :heavy_check_mark:  | :x:
 
 ¹ *Indexed color images (8-bit and below) are supported, but are converted to 24-bit or 32-bit images. This may change in future updates.*
 
@@ -81,6 +82,7 @@ BMP             | :heavy_check_mark:¹ | :heavy_check_mark:
 GIF             | :heavy_check_mark:  | :heavy_check_mark:²
 Animated GIF    | :heavy_check_mark:  | :x:
 TGA             | :heavy_check_mark:  | :x:
+QOI             | :heavy_check_mark:  | :x:
 
 ¹ *Indexed color images (8-bit and below) are supported, but are converted to 24-bit or 32-bit images. This may change in future updates.*
 
@@ -102,5 +104,6 @@ Library | Author | License
 [miniz](https://code.google.com/archive/p/miniz)¹ | Rich Geldreich | [Unlicense](https://code.google.com/archive/p/miniz)
 [gif-h](https://github.com/charlietangora/gif-h) | Charlie Tangora | [Public Domain](https://github.com/charlietangora/gif-h/blob/master/gif.h)
 [nanosvg](https://github.com/memononen/nanosvg) | Mikko Mononen | [zlib](https://github.com/memononen/nanosvg/blob/master/LICENSE.txt)
+[qoi](https://github.com/phoboslab/qoi) | Dominic Szablewski | [MIT](https://github.com/phoboslab/qoi/blob/master/LICENSE)
 
 ¹ *The linked version is public domain, and is the version used in G-Image. Newer versions of miniz are MIT licensed.*

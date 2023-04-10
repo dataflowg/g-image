@@ -82,6 +82,8 @@
 			<Item Name="Test Load JPG (Path).vi" Type="VI" URL="../Unit Tests/Test Load JPG (Path).vi"/>
 			<Item Name="Test Load PNG (Memory).vi" Type="VI" URL="../Unit Tests/Test Load PNG (Memory).vi"/>
 			<Item Name="Test Load PNG (Path).vi" Type="VI" URL="../Unit Tests/Test Load PNG (Path).vi"/>
+			<Item Name="Test Load QOI (Memory).vi" Type="VI" URL="../Unit Tests/Test Load QOI (Memory).vi"/>
+			<Item Name="Test Load QOI (Path).vi" Type="VI" URL="../Unit Tests/Test Load QOI (Path).vi"/>
 			<Item Name="Test Load SVG (Memory).vi" Type="VI" URL="../Unit Tests/Test Load SVG (Memory).vi"/>
 			<Item Name="Test Load SVG (Path).vi" Type="VI" URL="../Unit Tests/Test Load SVG (Path).vi"/>
 			<Item Name="Test Load TGA (Memory).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Memory).vi"/>
