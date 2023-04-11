@@ -14,6 +14,7 @@ https://github.com/dataflowg/g-image</Property>
 	<Item Name="Image IO" Type="Folder">
 		<Item Name="Controls" Type="Folder">
 			<Item Name="Dither Type.ctl" Type="VI" URL="../Image IO/Controls/Dither Type.ctl"/>
+			<Item Name="Image 16-bit.ctl" Type="VI" URL="../Image IO/Controls/Image 16-bit.ctl"/>
 			<Item Name="Image Save Format.ctl" Type="VI" URL="../Image IO/Controls/Image Save Format.ctl"/>
 			<Item Name="Units.ctl" Type="VI" URL="../Image IO/Controls/Units.ctl"/>
 		</Item>
@@ -82,6 +83,7 @@ https://github.com/dataflowg/g-image</Property>
 	</Item>
 	<Item Name="Private" Type="Folder">
 		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
+		<Item Name="Allocate And Move Block.vim" Type="VI" URL="../Private/Allocate And Move Block.vim"/>
 		<Item Name="ARGB To RGBA.vi" Type="VI" URL="../Private/ARGB To RGBA.vi"/>
 		<Item Name="Copy Image To Picture.vi" Type="VI" URL="../Private/Copy Image To Picture.vi"/>
 		<Item Name="Debug Path.vi" Type="VI" URL="../Private/Debug Path.vi"/>
@@ -98,7 +100,14 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Remove Padding.vi" Type="VI" URL="../Private/Remove Padding.vi"/>
 		<Item Name="Result To Error.vi" Type="VI" URL="../Private/Result To Error.vi"/>
 		<Item Name="RGB To ARGB.vi" Type="VI" URL="../Private/RGB To ARGB.vi"/>
-		<Item Name="RGBA To ARGB.vi" Type="VI" URL="../Private/RGBA To ARGB.vi"/>
+		<Item Name="RGBA To ARGB.vim" Type="VI" URL="../Private/RGBA To ARGB.vim"/>
 		<Item Name="To RGBA.vi" Type="VI" URL="../Private/To RGBA.vi"/>
+	</Item>
+	<Item Name="Copy Image To Picture (16-bit).vi" Type="VI" URL="../Private/Copy Image To Picture (16-bit).vi">
+		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
+	</Item>
+	<Item Name="Load Image (16-bit) (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (16-bit) (Path).vi"/>
+	<Item Name="Load Image From File (16-bit) (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (16-bit) (Core).vi">
+		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
 	</Item>
 </Library>

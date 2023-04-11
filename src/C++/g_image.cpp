@@ -37,8 +37,7 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 
 	if (result != GI_SUCCESS)
 	{
-		free(image);
-		image = NULL;
+		free_image(image);
 		return result;
 	}
 
@@ -72,10 +71,11 @@ gi_result gi_read_image_from_file(const char* file_name, gi_image_t* image)
 		n = 3;
 	}
 
-	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
+	image->data_size = x * y * layers * 4;
 	image->width = x;
 	image->height = y;
-	image->depth = n * 8;
+	image->channels = n;
+	image->bits_per_channel = 8;
 	image->layers = layers;
 	image->delays = delays;
 
@@ -97,10 +97,11 @@ gi_result gi_read_qoi_from_file(const char* file_name, gi_image_t* image)
 		return GI_E_GENERIC;
 	}
 
-	image->data_size = sizeof(uint8_t) * desc.width * desc.height * 4;
+	image->data_size = desc.width * desc.height * 4;
 	image->width = desc.width;
 	image->height = desc.height;
-	image->depth = desc.channels * 8;
+	image->channels = desc.channels;
+	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
 
@@ -128,8 +129,7 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 
 	if (result != GI_SUCCESS)
 	{
-		free(image);
-		image = NULL;
+		free_image(image);
 		return result;
 	}
 
@@ -163,10 +163,11 @@ gi_result gi_read_image_from_memory(const uint8_t* encoded_image, int32_t encode
 		n = 3;
 	}
 
-	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
+	image->data_size = x * y * layers * 4;
 	image->width = x;
 	image->height = y;
-	image->depth = n * 8;
+	image->channels = n;
+	image->bits_per_channel = 8;
 	image->layers = layers;
 	image->delays = delays;
 
@@ -183,12 +184,70 @@ gi_result gi_read_qoi_from_memory(const uint8_t* encoded_image, int32_t encoded_
 		return GI_E_GENERIC;
 	}
 
-	image->data_size = sizeof(uint8_t) * desc.width * desc.height * 4;
+	image->data_size = desc.width * desc.height * 4;
 	image->width = desc.width;
 	image->height = desc.height;
-	image->depth = desc.channels * 8;
+	image->channels = desc.channels;
+	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result load_image_from_file_16(const char* file_name, intptr_t* image_out)
+{
+	gi_result result;
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	result = gi_read_image_from_file_16(file_name, image);
+
+	if (result != GI_SUCCESS)
+	{
+		free_image(image);
+		return result;
+	}
+
+	*image_out = (intptr_t)image;
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_image_from_file_16(const char* file_name, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+	int* delays = NULL;
+
+	image->data = stbi_load_16(file_name, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		stbi_failure_reason();
+
+		return GI_E_GENERIC;
+	}
+
+	// If the image is less than 24-bit, assume it's 24-bit as we've requested 4 color components from stb_image
+	if (n < 3)
+	{
+		n = 3;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
+	image->bits_per_channel = 16;
 
 	return GI_SUCCESS;
 }
@@ -202,12 +261,21 @@ gi_result free_image(gi_image_t* image)
 {
 	if (image != NULL)
 	{
-		STBI_FREE(image->data);
-		image->data = NULL;
-		STBI_FREE(image->colors);
-		image->colors = NULL;
-		STBI_FREE(image->delays);
-		image->delays = NULL;
+		if (image->data != NULL)
+		{
+			STBI_FREE(image->data);
+			image->data = NULL;
+		}
+		if (image->colors != NULL)
+		{
+			STBI_FREE(image->colors);
+			image->colors = NULL;
+		}
+		if (image->delays != NULL)
+		{
+			STBI_FREE(image->delays);
+			image->delays = NULL;
+		}
 		free(image);
 		image = NULL;
 	}
@@ -252,7 +320,8 @@ extern "C" LV_DLL_EXPORT gi_result load_svg_from_file(const char* file_name, flo
 	image->data_size = width * height * 4;
 	image->width = width;
 	image->height = height;
-	image->depth = 32;
+	image->channels = 4;
+	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
 	*image_out = (intptr_t)image;
@@ -300,7 +369,8 @@ extern "C" LV_DLL_EXPORT gi_result load_svg_from_memory(const uint8_t* encoded_i
 	image->data_size = width * height * 4;
 	image->width = width;
 	image->height = height;
-	image->depth = 32;
+	image->channels = 4;
+	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
 	*image_out = (intptr_t)image;
