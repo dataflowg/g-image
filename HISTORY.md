@@ -1,14 +1,23 @@
 # G-Image Release History
-### v0.4.0 - 2023-04-xx
+### v0.4.0 - 2023-05-xx
 * Support for reading and writing QOI ('Quite OK Image Format') images
     * Lossless 24-bit and 32-bit image type with fast encode + decode
 * Support for loading and processing 16-bit per channel images
-* New Create Mask By Index.vi
 * Fix incorrect error output when saving GIF files
 * Fix incorrect alpha channel when converting certain 8-bit images to 32-bit
 * Fix incorrect default scale when loading SVG from UTF-8 path
 * Misc. VI doc updates
 * Update stb_image.h to v2.28
+
+##### New VIs
+* _Save QOI Image.vi_
+* _Load Image (16-bit).vi_
+* _Convert Image To 8-bit Per Channel.vim_
+* _Convert Image To 16-bit Per Channel.vim_
+* _Create Mask By Index.vi_
+
+##### Changed VIs
+* _Resize Image.vi_ is now polymorphic, accepting either width x height or a scale multiplier
 
 ### v0.3.0 - 2023-02-13
 * Basic support for loading Scalable Vector Graphics (SVG)

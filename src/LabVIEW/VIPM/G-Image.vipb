@@ -1,4 +1,4 @@
-<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2023-05-04 03:54:37" Creator="Dataflow_G" Comments="" ID="3268b8b7cc6110c4ee1acbcd8c7cc372">
+<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2023-05-04 15:04:39" Creator="Dataflow_G" Comments="" ID="583b7a13690f65630b70ff4fb020d3e5">
   <Library_General_Settings>
     <Package_File_Name>Dataflow_G_lib_G_Image</Package_File_Name>
     <Library_Version>0.4.0.1</Library_Version>
@@ -47,24 +47,21 @@ Features include:
       <Release_Notes>* Support for reading and writing QOI ('Quite OK Image Format') images
 -- Lossless 24-bit and 32-bit image type with fast encode + decode
 * Support for loading and processing 16-bit per channel images
-* New Create Mask By Index.vi for 8-bit paletted images
 * Fix incorrect error output when saving GIF files
 * Fix incorrect alpha channel when converting certain 8-bit images to 32-bit
 * Fix incorrect default scale when loading SVG from UTF-8 path
 * Misc. VI doc updates
 * Update stb_image.h to v2.28
 
-API Changes:
-* New VIs:
+* NEW VIs
+-- Save QOI Image.vi
 -- Load Image (16-bit).vi
 -- Convert Image To 8-bit Per Channel.vim
 -- Convert Image To 16-bit Per Channel.vim
 -- Create Mask By Index.vi
--- Save QOI Image.vi
-* The following VIs are now malleable (.vim) to handle both 8-bit and 16-bit per channel images:
--- Resize Image.vi
--- Rotate Image.vi
--- Flip Image.vi</Release_Notes>
+
+* CHANGED VIs
+-- Resize Image.vi is now polymorphic, accepting either width x height or a scale multiplier</Release_Notes>
     </Description>
     <Destinations>
       <Toolkit_VIs>
@@ -294,7 +291,7 @@ API Changes:
         <Path>..\Examples</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>D3C3425DB2C73F4B1BA70D11BAF5A7E4</GUID>
+      <GUID>799CE2E8C384E5DA3B33FD2413580E18</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -469,7 +466,7 @@ API Changes:
         <Path>..\G-Image\Image IO\Load Image (16-bit).vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>DD97C652C75B299E77B7818C7332AA3A</GUID>
+      <GUID>5F9628158AD90CC7ED6FCCEE8754BF80</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -588,7 +585,35 @@ API Changes:
         <Path>..\G-Image\Image Processing\Convert Image To 16-bit Per Channel.vim</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>F07E78EC1E6B4E7220BFAFF83E783CA8</GUID>
+      <Items_Data>
+        <Type>Item</Type>
+        <Sub_Palette_Index>-1</Sub_Palette_Index>
+        <NameSub_Menu_Name>Create Mask By Index.vi</NameSub_Menu_Name>
+        <Short_Name/>
+        <is_Merge_VI>false</is_Merge_VI>
+        <Position>
+          <Row>2</Row>
+          <Column>4</Column>
+        </Position>
+        <Icon>00000000</Icon>
+        <Path>..\G-Image\Image Processing\Create Mask By Index.vi</Path>
+        <VI_Title/>
+      </Items_Data>
+      <Items_Data>
+        <Type>Item</Type>
+        <Sub_Palette_Index>-1</Sub_Palette_Index>
+        <NameSub_Menu_Name>Find Nearest Color.vi</NameSub_Menu_Name>
+        <Short_Name/>
+        <is_Merge_VI>false</is_Merge_VI>
+        <Position>
+          <Row>2</Row>
+          <Column>3</Column>
+        </Position>
+        <Icon>00000000</Icon>
+        <Path>..\G-Image\Image Processing\Find Nearest Color.vi</Path>
+        <VI_Title/>
+      </Items_Data>
+      <GUID>3C4534D1752CE025F12C4025F0061240</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -679,7 +704,7 @@ API Changes:
         <Path>..\G-Image\Examples\SVG Scale Example.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>C0E6005437B3455AA646D4D10048F187</GUID>
+      <GUID>823675AE3DC5070E16DA148278BD5266</GUID>
     </Functions_Palette_Data>
   </Library_Palette_Definition>
 </VI_Package_Builder_Settings>
