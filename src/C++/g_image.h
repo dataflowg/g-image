@@ -182,6 +182,7 @@ extern "C" LV_DLL_EXPORT int32_t clfn_abort(void* data);
 extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image_out);
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_size, intptr_t* image_out);
 extern "C" LV_DLL_EXPORT gi_result load_image_from_file_16(const char* file_name, intptr_t* image_out);
+extern "C" LV_DLL_EXPORT gi_result load_image_from_memory_16(const uint8_t* encoded_image, int32_t encoded_image_size, intptr_t* image_out);
 extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr);
 gi_result free_image(gi_image_t* image);
 
@@ -211,6 +212,7 @@ gi_result gi_read_qoi_from_memory(const uint8_t* encoded_image, int32_t encoded_
 bool gi_is_qoi_memory(const uint8_t* encoded_image, int32_t encoded_image_count);
 
 gi_result gi_read_image_from_file_16(const char* file_name, gi_image_t* image);
+gi_result gi_read_image_from_memory_16(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image);
 
 int32_t gi_write_qoi(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data);
 int32_t gi_save_qoi_to_memory(int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, save_callback_data_t* callback_data);

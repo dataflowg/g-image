@@ -2,7 +2,11 @@
 ### v0.4.0 - 2023-04-xx
 * Support for reading and writing QOI ('Quite OK Image Format') images
     * Lossless 24-bit and 32-bit image type with fast encode + decode
+* Support for loading and processing 16-bit per channel images
+* New Create Mask By Index.vi
 * Fix incorrect error output when saving GIF files
+* Fix incorrect alpha channel when converting certain 8-bit images to 32-bit
+* Fix incorrect default scale when loading SVG from UTF-8 path
 * Misc. VI doc updates
 * Update stb_image.h to v2.28
 

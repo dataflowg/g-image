@@ -74,6 +74,7 @@
 			<Item Name="SVG Scale Example.vi" Type="VI" URL="../G-Image/Examples/SVG Scale Example.vi"/>
 		</Item>
 		<Item Name="Unit Tests" Type="Folder">
+			<Item Name="Test Load 16-bit PNG (Path).vi" Type="VI" URL="../Unit Tests/Test Load 16-bit PNG (Path).vi"/>
 			<Item Name="Test Load BMP (Memory).vi" Type="VI" URL="../Unit Tests/Test Load BMP (Memory).vi"/>
 			<Item Name="Test Load BMP (Path).vi" Type="VI" URL="../Unit Tests/Test Load BMP (Path).vi"/>
 			<Item Name="Test Load GIF (Memory).vi" Type="VI" URL="../Unit Tests/Test Load GIF (Memory).vi"/>
@@ -88,6 +89,22 @@
 			<Item Name="Test Load SVG (Path).vi" Type="VI" URL="../Unit Tests/Test Load SVG (Path).vi"/>
 			<Item Name="Test Load TGA (Memory).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Memory).vi"/>
 			<Item Name="Test Load TGA (Path).vi" Type="VI" URL="../Unit Tests/Test Load TGA (Path).vi"/>
+			<Item Name="Test Load Unicode Paths.vi" Type="VI" URL="../Unit Tests/Test Load Unicode Paths.vi"/>
+			<Item Name="Test Save Animated GIF (Memory).vi" Type="VI" URL="../Unit Tests/Test Save Animated GIF (Memory).vi"/>
+			<Item Name="Test Save Animated GIF (Path).vi" Type="VI" URL="../Unit Tests/Test Save Animated GIF (Path).vi"/>
+			<Item Name="Test Save BMP (Memory).vi" Type="VI" URL="../Unit Tests/Test Save BMP (Memory).vi"/>
+			<Item Name="Test Save BMP (Path).vi" Type="VI" URL="../Unit Tests/Test Save BMP (Path).vi"/>
+			<Item Name="Test Save GIF (Memory).vi" Type="VI" URL="../Unit Tests/Test Save GIF (Memory).vi"/>
+			<Item Name="Test Save GIF (Path).vi" Type="VI" URL="../Unit Tests/Test Save GIF (Path).vi"/>
+			<Item Name="Test Save JPG (Memory).vi" Type="VI" URL="../Unit Tests/Test Save JPG (Memory).vi"/>
+			<Item Name="Test Save JPG (Path).vi" Type="VI" URL="../Unit Tests/Test Save JPG (Path).vi"/>
+			<Item Name="Test Save PNG (Memory).vi" Type="VI" URL="../Unit Tests/Test Save PNG (Memory).vi"/>
+			<Item Name="Test Save PNG (Path).vi" Type="VI" URL="../Unit Tests/Test Save PNG (Path).vi"/>
+			<Item Name="Test Save QOI (Memory).vi" Type="VI" URL="../Unit Tests/Test Save QOI (Memory).vi"/>
+			<Item Name="Test Save QOI (Path).vi" Type="VI" URL="../Unit Tests/Test Save QOI (Path).vi"/>
+			<Item Name="Test Save TGA (Memory).vi" Type="VI" URL="../Unit Tests/Test Save TGA (Memory).vi"/>
+			<Item Name="Test Save TGA (Path).vi" Type="VI" URL="../Unit Tests/Test Save TGA (Path).vi"/>
+			<Item Name="Test Save Unicode Paths.vi" Type="VI" URL="../Unit Tests/Test Save Unicode Paths.vi"/>
 		</Item>
 		<Item Name="G-Image.lvlib" Type="Library" URL="../G-Image/G-Image.lvlib"/>
 		<Item Name="Dependencies" Type="Dependencies">
@@ -96,7 +113,9 @@
 				<Item Name="Bit-array To Byte-array.vi" Type="VI" URL="/&lt;vilib&gt;/picture/pictutil.llb/Bit-array To Byte-array.vi"/>
 				<Item Name="Color to RGB.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/colorconv.llb/Color to RGB.vi"/>
 				<Item Name="Create Mask By Alpha.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Create Mask By Alpha.vi"/>
+				<Item Name="Create NI GUID.vi" Type="VI" URL="/&lt;vilib&gt;/string/Create NI GUID.vi"/>
 				<Item Name="Draw Flattened Pixmap.vi" Type="VI" URL="/&lt;vilib&gt;/picture/picture.llb/Draw Flattened Pixmap.vi"/>
+				<Item Name="Enum to Array of Enums.vim" Type="VI" URL="/&lt;vilib&gt;/numeric/Enum to Array of Enums.vim"/>
 				<Item Name="Error Cluster From Error Code.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Error Cluster From Error Code.vi"/>
 				<Item Name="ex_CorrectErrorChain.vi" Type="VI" URL="/&lt;vilib&gt;/express/express shared/ex_CorrectErrorChain.vi"/>
 				<Item Name="FixBadRect.vi" Type="VI" URL="/&lt;vilib&gt;/picture/pictutil.llb/FixBadRect.vi"/>
@@ -108,6 +127,7 @@
 				<Item Name="Set Cursor (Icon Pict).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor (Icon Pict).vi"/>
 				<Item Name="Set Cursor.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/cursorutil.llb/Set Cursor.vi"/>
 				<Item Name="subFile Dialog.vi" Type="VI" URL="/&lt;vilib&gt;/express/express input/FileDialogBlock.llb/subFile Dialog.vi"/>
+				<Item Name="System Exec.vi" Type="VI" URL="/&lt;vilib&gt;/Platform/system.llb/System Exec.vi"/>
 			</Item>
 			<Item Name="g_image_32.dll" Type="Document" URL="../G-Image/lib/g_image_32.dll"/>
 		</Item>

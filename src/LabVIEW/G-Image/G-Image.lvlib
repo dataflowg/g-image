@@ -22,6 +22,9 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Load Animated GIF Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Animated GIF Image (Memory).vi"/>
 			<Item Name="Load Animated GIF Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Animated GIF Image (Path).vi"/>
 			<Item Name="Load Animated GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Animated GIF Image (UTF-8 Path).vi"/>
+			<Item Name="Load Image (16-bit) (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (16-bit) (Memory).vi"/>
+			<Item Name="Load Image (16-bit) (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (16-bit) (Path).vi"/>
+			<Item Name="Load Image (16-bit) (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (16-bit) (UTF-8 Path).vi"/>
 			<Item Name="Load Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Memory).vi"/>
 			<Item Name="Load Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (Path).vi"/>
 			<Item Name="Load Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (UTF-8 Path).vi"/>
@@ -50,7 +53,9 @@ https://github.com/dataflowg/g-image</Property>
 		</Item>
 		<Item Name="Private" Type="Folder">
 			<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
+			<Item Name="Load Image From File (16-bit) (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (16-bit) (Core).vi"/>
 			<Item Name="Load Image From File (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (Core).vi"/>
+			<Item Name="Load Image From Memory (16-bit) (Core).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image From Memory (16-bit) (Core).vi"/>
 			<Item Name="Load Image From Memory (Core).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image From Memory (Core).vi"/>
 			<Item Name="Load SVG From File (Core).vi" Type="VI" URL="../Image IO/Private/Load SVG From File (Core).vi"/>
 			<Item Name="Load SVG From Memory (Core).vi" Type="VI" URL="../Image IO/Private/Load SVG From Memory (Core).vi"/>
@@ -59,6 +64,7 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Save Image To Memory (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To Memory (Core).vim"/>
 		</Item>
 		<Item Name="Load Animated GIF Image.vi" Type="VI" URL="../Image IO/Load Animated GIF Image.vi"/>
+		<Item Name="Load Image (16-bit).vi" Type="VI" URL="../Image IO/Load Image (16-bit).vi"/>
 		<Item Name="Load Image.vi" Type="VI" URL="../Image IO/Load Image.vi"/>
 		<Item Name="Load SVG Image.vi" Type="VI" URL="../Image IO/Load SVG Image.vi"/>
 		<Item Name="Save Animated GIF Image.vi" Type="VI" URL="../Image IO/Save Animated GIF Image.vi"/>
@@ -74,6 +80,9 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Flip Direction.ctl" Type="VI" URL="../Image Processing/Controls/Flip Direction.ctl"/>
 			<Item Name="Resize Filter.ctl" Type="VI" URL="../Image Processing/Controls/Resize Filter.ctl"/>
 		</Item>
+		<Item Name="Convert Image To 8-bit Per Channel.vim" Type="VI" URL="../Image Processing/Convert Image To 8-bit Per Channel.vim"/>
+		<Item Name="Convert Image To 16-bit Per Channel.vim" Type="VI" URL="../Image Processing/Convert Image To 16-bit Per Channel.vim"/>
+		<Item Name="Create Mask By Index.vi" Type="VI" URL="../Image Processing/Create Mask By Index.vi"/>
 		<Item Name="Find Nearest Color.vi" Type="VI" URL="../Image Processing/Find Nearest Color.vi"/>
 		<Item Name="Flip Image.vi" Type="VI" URL="../Image Processing/Flip Image.vi"/>
 		<Item Name="Indexed Color To True Color Image.vi" Type="VI" URL="../Image Processing/Indexed Color To True Color Image.vi"/>
@@ -85,6 +94,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
 		<Item Name="Allocate And Move Block.vim" Type="VI" URL="../Private/Allocate And Move Block.vim"/>
 		<Item Name="ARGB To RGBA.vi" Type="VI" URL="../Private/ARGB To RGBA.vi"/>
+		<Item Name="Copy Image To Picture (16-bit).vi" Type="VI" URL="../Private/Copy Image To Picture (16-bit).vi"/>
 		<Item Name="Copy Image To Picture.vi" Type="VI" URL="../Private/Copy Image To Picture.vi"/>
 		<Item Name="Debug Path.vi" Type="VI" URL="../Private/Debug Path.vi"/>
 		<Item Name="Depth To Number Channels.vi" Type="VI" URL="../Private/Depth To Number Channels.vi"/>
@@ -102,12 +112,5 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="RGB To ARGB.vi" Type="VI" URL="../Private/RGB To ARGB.vi"/>
 		<Item Name="RGBA To ARGB.vim" Type="VI" URL="../Private/RGBA To ARGB.vim"/>
 		<Item Name="To RGBA.vi" Type="VI" URL="../Private/To RGBA.vi"/>
-	</Item>
-	<Item Name="Copy Image To Picture (16-bit).vi" Type="VI" URL="../Private/Copy Image To Picture (16-bit).vi">
-		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
-	</Item>
-	<Item Name="Load Image (16-bit) (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load Image (16-bit) (Path).vi"/>
-	<Item Name="Load Image From File (16-bit) (Core).vi" Type="VI" URL="../Image IO/Private/Load Image From File (16-bit) (Core).vi">
-		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
 	</Item>
 </Library>

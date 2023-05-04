@@ -252,6 +252,62 @@ gi_result gi_read_image_from_file_16(const char* file_name, gi_image_t* image)
 	return GI_SUCCESS;
 }
 
+extern "C" LV_DLL_EXPORT gi_result load_image_from_memory_16(const uint8_t* encoded_image, int32_t encoded_image_count, intptr_t* image_out)
+{
+	gi_result result;
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	result = gi_read_image_from_memory_16(encoded_image, encoded_image_count, image);
+
+	if (result != GI_SUCCESS)
+	{
+		free_image(image);
+		return result;
+	}
+
+	*image_out = (intptr_t)image;
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_image_from_memory_16(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+
+	image->data = stbi_load_16_from_memory(encoded_image, encoded_image_count, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		stbi_failure_reason();
+
+		return GI_E_GENERIC;
+	}
+
+	// If the image is less than 24-bit, assume it's 24-bit as we've requested 4 color components from stb_image
+	if (n < 3)
+	{
+		n = 3;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
+	image->bits_per_channel = 16;
+
+	return GI_SUCCESS;
+}
+
 extern "C" LV_DLL_EXPORT gi_result free_image(intptr_t image_ptr)
 {
 	return free_image((gi_image_t*)image_ptr);
