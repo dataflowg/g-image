@@ -23,7 +23,7 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 ## <a id="whats-new"></a>What's New?
 * Support for reading and writing QOI ('Quite OK Image Format') images
     * Lossless 24-bit and 32-bit image type with fast encode + decode
-* Support for loading and processing 16-bit per channel images
+* Support for loading 16-bit per channel images
 * Fix incorrect error output when saving GIF files
 * Fix incorrect alpha channel when converting certain 8-bit images to 32-bit
 * Fix incorrect default scale when loading SVG from UTF-8 path
