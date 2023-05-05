@@ -168,6 +168,7 @@
     <ClInclude Include="nanosvg.h" />
     <ClInclude Include="nanosvgrast.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="qoi.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_image_resize.h" />

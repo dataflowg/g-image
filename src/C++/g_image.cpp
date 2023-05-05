@@ -18,15 +18,43 @@ extern "C" LV_DLL_EXPORT int32_t clfn_abort(void* data)
 
 extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, intptr_t* image_out)
 {
-	int x, y, n, layers;
-	int* delays = NULL;
-
+	gi_result result;
 	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
 	
 	if (image == NULL)
 	{
 		return GI_E_MEMORY;
 	}
+
+	if (gi_is_qoi_file(file_name))
+	{
+		result = gi_read_qoi_from_file(file_name, image);
+	}
+	else
+	{
+		result = gi_read_image_from_file(file_name, image);
+	}
+
+	if (result != GI_SUCCESS)
+	{
+		free_image(image);
+		return result;
+	}
+
+	*image_out = (intptr_t)image;
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_image_from_file(const char* file_name, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n, layers;
+	int* delays = NULL;
 
 	image->data = stbi_load_from_file_extended(file_name, &x, &y, &n, &layers, &delays);
 
@@ -43,29 +71,82 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 		n = 3;
 	}
 
-	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
+	image->data_size = x * y * layers * 4;
 	image->width = x;
 	image->height = y;
-	image->depth = n * 8;
+	image->channels = n;
+	image->bits_per_channel = 8;
 	image->layers = layers;
 	image->delays = delays;
 
-	*image_out = (intptr_t)image;
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_qoi_from_file(const char* file_name, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	qoi_desc desc;
+	image->data = (uint8_t*)qoi_read_utf8(file_name, &desc, 4);
+
+	if (image->data == NULL)
+	{
+		return GI_E_GENERIC;
+	}
+
+	image->data_size = desc.width * desc.height * 4;
+	image->width = desc.width;
+	image->height = desc.height;
+	image->channels = desc.channels;
+	image->bits_per_channel = 8;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
 
 	return GI_SUCCESS;
 }
 
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, intptr_t* image_out)
 {
-	int x, y, n, layers;
-	int* delays = NULL;
-
+	gi_result result;
 	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
 
 	if (image == NULL)
 	{
 		return GI_E_MEMORY;
 	}
+
+	if (gi_is_qoi_memory(encoded_image, encoded_image_count))
+	{
+		result = gi_read_qoi_from_memory(encoded_image, encoded_image_count, image);
+	}
+	else
+	{
+		result = gi_read_image_from_memory(encoded_image, encoded_image_count, image);
+	}
+
+	if (result != GI_SUCCESS)
+	{
+		free_image(image);
+		return result;
+	}
+
+	*image_out = (intptr_t)image;
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n, layers;
+	int* delays = NULL;
 
 	image->data = stbi_load_from_memory_extended(encoded_image, encoded_image_count, &x, &y, &n, &layers, &delays);
 
@@ -82,14 +163,147 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 		n = 3;
 	}
 
-	image->data_size = sizeof(uint8_t) * x * y * layers * 4;
+	image->data_size = x * y * layers * 4;
 	image->width = x;
 	image->height = y;
-	image->depth = n * 8;
+	image->channels = n;
+	image->bits_per_channel = 8;
 	image->layers = layers;
 	image->delays = delays;
 
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_qoi_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image)
+{
+	qoi_desc desc;
+	image->data = (uint8_t*)qoi_decode(encoded_image, encoded_image_count, &desc, 4);
+
+	if (image->data == NULL)
+	{
+		return GI_E_GENERIC;
+	}
+
+	image->data_size = desc.width * desc.height * 4;
+	image->width = desc.width;
+	image->height = desc.height;
+	image->channels = desc.channels;
+	image->bits_per_channel = 8;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result load_image_from_file_16(const char* file_name, intptr_t* image_out)
+{
+	gi_result result;
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	result = gi_read_image_from_file_16(file_name, image);
+
+	if (result != GI_SUCCESS)
+	{
+		free_image(image);
+		return result;
+	}
+
 	*image_out = (intptr_t)image;
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_image_from_file_16(const char* file_name, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+	int* delays = NULL;
+
+	image->data = stbi_load_16(file_name, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		stbi_failure_reason();
+
+		return GI_E_GENERIC;
+	}
+
+	// If the image is less than 24-bit, assume it's 24-bit as we've requested 4 color components from stb_image
+	if (n < 3)
+	{
+		n = 3;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
+	image->bits_per_channel = 16;
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result load_image_from_memory_16(const uint8_t* encoded_image, int32_t encoded_image_count, intptr_t* image_out)
+{
+	gi_result result;
+	gi_image_t* image = (gi_image_t*)calloc(1, sizeof(gi_image_t));
+
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	result = gi_read_image_from_memory_16(encoded_image, encoded_image_count, image);
+
+	if (result != GI_SUCCESS)
+	{
+		free_image(image);
+		return result;
+	}
+
+	*image_out = (intptr_t)image;
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_image_from_memory_16(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+
+	image->data = stbi_load_16_from_memory(encoded_image, encoded_image_count, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		stbi_failure_reason();
+
+		return GI_E_GENERIC;
+	}
+
+	// If the image is less than 24-bit, assume it's 24-bit as we've requested 4 color components from stb_image
+	if (n < 3)
+	{
+		n = 3;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
+	image->bits_per_channel = 16;
 
 	return GI_SUCCESS;
 }
@@ -103,12 +317,21 @@ gi_result free_image(gi_image_t* image)
 {
 	if (image != NULL)
 	{
-		STBI_FREE(image->data);
-		image->data = NULL;
-		STBI_FREE(image->colors);
-		image->colors = NULL;
-		STBI_FREE(image->delays);
-		image->delays = NULL;
+		if (image->data != NULL)
+		{
+			STBI_FREE(image->data);
+			image->data = NULL;
+		}
+		if (image->colors != NULL)
+		{
+			STBI_FREE(image->colors);
+			image->colors = NULL;
+		}
+		if (image->delays != NULL)
+		{
+			STBI_FREE(image->delays);
+			image->delays = NULL;
+		}
 		free(image);
 		image = NULL;
 	}
@@ -153,7 +376,8 @@ extern "C" LV_DLL_EXPORT gi_result load_svg_from_file(const char* file_name, flo
 	image->data_size = width * height * 4;
 	image->width = width;
 	image->height = height;
-	image->depth = 32;
+	image->channels = 4;
+	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
 	*image_out = (intptr_t)image;
@@ -201,7 +425,8 @@ extern "C" LV_DLL_EXPORT gi_result load_svg_from_memory(const uint8_t* encoded_i
 	image->data_size = width * height * 4;
 	image->width = width;
 	image->height = height;
-	image->depth = 32;
+	image->channels = 4;
+	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
 	*image_out = (intptr_t)image;
@@ -226,6 +451,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 		case format_save_gif: result = gi_write_gif(file_name, width, height, image_data, (dither_type_t)*(uint32_t*)option); break;
 		case format_save_tga: stbi_write_tga_with_rle = *(int32_t*)option;
 							  result = stbi_write_tga(file_name, width, height, channels, image_data); break;
+		case format_save_qoi: result = gi_write_qoi(file_name, width, height, channels, image_data); break;
 		default: return GI_E_UNSUPPORTED; break;
 	}
 
@@ -237,7 +463,18 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_file(const char* file_name, int
 	return GI_SUCCESS;
 }
 
-gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither)
+int32_t gi_write_qoi(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data)
+{
+	qoi_desc desc;
+	desc.width = width;
+	desc.height = height;
+	desc.channels = channels;
+	desc.colorspace = QOI_LINEAR;
+
+	return qoi_write_utf8(file_name, image_data, &desc);
+}
+
+int32_t gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither)
 {
 	GifWriter writer = {};
 	bool gif_result = true;
@@ -248,10 +485,10 @@ gi_result gi_write_gif(const char* file_name, int32_t width, int32_t height, con
 
 	if (!gif_result)
 	{
-		return GI_E_FILE;
+		return 0;
 	}
 
-	return GI_SUCCESS;
+	return 1;
 }
 
 
@@ -307,6 +544,33 @@ extern "C" LV_DLL_EXPORT gi_result close_gif(intptr_t writer_ptr)
 	}
 
 	return GI_SUCCESS;
+}
+
+bool gi_is_qoi_file(const char* file_name)
+{
+	FILE *f = stbi__fopen(file_name, "rb");
+	if (f == NULL)
+	{
+		return false;
+	}
+
+	uint8_t header_buffer[4];
+	fread(header_buffer, sizeof(uint8_t), 4, f);
+	fclose(f);
+	f = NULL;
+
+	return gi_is_qoi_memory(header_buffer, 4);
+}
+
+bool gi_is_qoi_memory(const uint8_t* encoded_image, int32_t encoded_image_count)
+{
+	if (encoded_image_count < 4)
+	{
+		return false;
+	}
+
+	int32_t p = 0;
+	return (qoi_read_32(encoded_image, &p) == QOI_MAGIC);
 }
 
 
@@ -366,6 +630,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 		case format_save_bmp: result = stbi_write_bmp_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
 		case format_save_tga: stbi_write_tga_with_rle = *(int32_t*)option;
 							  result = stbi_write_tga_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
+		case format_save_qoi: result = gi_save_qoi_to_memory(width, height, channels, image_data_in, &callback_data); break;
 		default: return GI_E_UNSUPPORTED; break;
 	}
 
@@ -383,6 +648,24 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 	*encoded_image_count = callback_data.image_data_count;
 
 	return GI_SUCCESS;
+}
+
+int32_t gi_save_qoi_to_memory(int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, save_callback_data_t* callback_data)
+{
+	qoi_desc desc;
+	desc.width = width;
+	desc.height = height;
+	desc.channels = channels;
+	desc.colorspace = QOI_LINEAR;
+
+	callback_data->image_data = (uint8_t*)qoi_encode(image_data, &desc, &callback_data->image_data_count);
+
+	if (callback_data->image_data == NULL)
+	{
+		return 0;
+	}
+
+	return callback_data->image_data_count;
 }
 
 extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr)
