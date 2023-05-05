@@ -18,6 +18,10 @@
 		E578CD8B28924979009D41D7 /* stb_image_resize.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD8128924979009D41D7 /* stb_image_resize.h */; };
 		E578CD8C28924979009D41D7 /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = E578CD8228924979009D41D7 /* stb_image.h */; };
 		E5C6388D28A019F40056E437 /* gif.h in Headers */ = {isa = PBXBuildFile; fileRef = E5C6388C28A019F40056E437 /* gif.h */; };
+		E5D88E1C2A0410BA00080F87 /* miniz.h in Headers */ = {isa = PBXBuildFile; fileRef = E5D88E182A0410BA00080F87 /* miniz.h */; };
+		E5D88E1D2A0410BA00080F87 /* nanosvg.h in Headers */ = {isa = PBXBuildFile; fileRef = E5D88E192A0410BA00080F87 /* nanosvg.h */; };
+		E5D88E1E2A0410BA00080F87 /* nanosvgrast.h in Headers */ = {isa = PBXBuildFile; fileRef = E5D88E1A2A0410BA00080F87 /* nanosvgrast.h */; };
+		E5D88E1F2A0410BA00080F87 /* qoi.h in Headers */ = {isa = PBXBuildFile; fileRef = E5D88E1B2A0410BA00080F87 /* qoi.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		E578CD8128924979009D41D7 /* stb_image_resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image_resize.h; path = ../../stb_image_resize.h; sourceTree = "<group>"; };
 		E578CD8228924979009D41D7 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image.h; path = ../../stb_image.h; sourceTree = "<group>"; };
 		E5C6388C28A019F40056E437 /* gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gif.h; path = ../../gif.h; sourceTree = "<group>"; };
+		E5D88E182A0410BA00080F87 /* miniz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = miniz.h; path = ../../miniz.h; sourceTree = "<group>"; };
+		E5D88E192A0410BA00080F87 /* nanosvg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nanosvg.h; path = ../../nanosvg.h; sourceTree = "<group>"; };
+		E5D88E1A2A0410BA00080F87 /* nanosvgrast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nanosvgrast.h; path = ../../nanosvgrast.h; sourceTree = "<group>"; };
+		E5D88E1B2A0410BA00080F87 /* qoi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = qoi.h; path = ../../qoi.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +74,10 @@
 		E578CD70289248BB009D41D7 /* g_image */ = {
 			isa = PBXGroup;
 			children = (
+				E5D88E182A0410BA00080F87 /* miniz.h */,
+				E5D88E192A0410BA00080F87 /* nanosvg.h */,
+				E5D88E1A2A0410BA00080F87 /* nanosvgrast.h */,
+				E5D88E1B2A0410BA00080F87 /* qoi.h */,
 				E5C6388C28A019F40056E437 /* gif.h */,
 				E578CD7B28924978009D41D7 /* dllmain.cpp */,
 				E578CD8028924979009D41D7 /* framework.h */,
@@ -89,7 +101,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5D88E1F2A0410BA00080F87 /* qoi.h in Headers */,
+				E5D88E1C2A0410BA00080F87 /* miniz.h in Headers */,
 				E578CD8628924979009D41D7 /* stb_image_write.h in Headers */,
+				E5D88E1E2A0410BA00080F87 /* nanosvgrast.h in Headers */,
 				E5C6388D28A019F40056E437 /* gif.h in Headers */,
 				E578CD73289248BB009D41D7 /* xcode.h in Headers */,
 				E578CD8B28924979009D41D7 /* stb_image_resize.h in Headers */,
@@ -97,6 +112,7 @@
 				E578CD8C28924979009D41D7 /* stb_image.h in Headers */,
 				E578CD8A28924979009D41D7 /* framework.h in Headers */,
 				E578CD8928924979009D41D7 /* pch.h in Headers */,
+				E5D88E1D2A0410BA00080F87 /* nanosvg.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +324,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "dataflowg.g-image";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -331,7 +347,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "dataflowg.g-image";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

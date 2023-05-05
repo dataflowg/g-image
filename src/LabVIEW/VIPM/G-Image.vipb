@@ -1,7 +1,7 @@
-<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2023-05-04 15:04:39" Creator="Dataflow_G" Comments="" ID="583b7a13690f65630b70ff4fb020d3e5">
+<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2023-05-04 16:42:26" Creator="Dataflow_G" Comments="" ID="0e352f7750cb55016daaf4cbb2b69aca">
   <Library_General_Settings>
     <Package_File_Name>Dataflow_G_lib_G_Image</Package_File_Name>
-    <Library_Version>0.4.0.1</Library_Version>
+    <Library_Version>0.4.0.2</Library_Version>
     <Auto_Increment_Version>false</Auto_Increment_Version>
     <Library_Source_Folder>..</Library_Source_Folder>
     <Library_Output_Folder>.</Library_Output_Folder>
@@ -46,7 +46,7 @@ Features include:
       <URL>https://github.com/dataflowg/g-image</URL>
       <Release_Notes>* Support for reading and writing QOI ('Quite OK Image Format') images
 -- Lossless 24-bit and 32-bit image type with fast encode + decode
-* Support for loading and processing 16-bit per channel images
+* Support for loading 16-bit per channel images
 * Fix incorrect error output when saving GIF files
 * Fix incorrect alpha channel when converting certain 8-bit images to 32-bit
 * Fix incorrect default scale when loading SVG from UTF-8 path
@@ -291,7 +291,7 @@ Features include:
         <Path>..\Examples</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>799CE2E8C384E5DA3B33FD2413580E18</GUID>
+      <GUID>3A39822C404A09D58476E91A3975A4E1</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -466,7 +466,7 @@ Features include:
         <Path>..\G-Image\Image IO\Load Image (16-bit).vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>5F9628158AD90CC7ED6FCCEE8754BF80</GUID>
+      <GUID>D5E18A5045E3B84B10D1378B3BCA89D1</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -613,7 +613,7 @@ Features include:
         <Path>..\G-Image\Image Processing\Find Nearest Color.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>3C4534D1752CE025F12C4025F0061240</GUID>
+      <GUID>7860A456A4AE71B42DF87F2BDEB63A1F</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -704,7 +704,7 @@ Features include:
         <Path>..\G-Image\Examples\SVG Scale Example.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>823675AE3DC5070E16DA148278BD5266</GUID>
+      <GUID>0D504958D0236AF531591A715F7914D7</GUID>
     </Functions_Palette_Data>
   </Library_Palette_Definition>
 </VI_Package_Builder_Settings>
