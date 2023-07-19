@@ -102,6 +102,9 @@ unsigned char* compress_for_stbiw(unsigned char *data, int data_len, int *out_le
 #define QOI_IMPLEMENTATION
 #include "qoi.h"
 
+#define DR_PCX_IMPLEMENTATION
+#include "dr_pcx.h"
+
 #if defined(_WIN32)
 #define LV_DLL_IMPORT  __declspec(dllimport)
 #define LV_DLL_EXPORT  __declspec(dllexport)
@@ -210,6 +213,11 @@ bool gi_is_qoi_file(const char* file_name);
 gi_result gi_read_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image);
 gi_result gi_read_qoi_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image);
 bool gi_is_qoi_memory(const uint8_t* encoded_image, int32_t encoded_image_count);
+
+gi_result gi_read_pcx_from_file(const char* file_name, gi_image_t* image);
+bool gi_is_pcx_file(const char* file_name);
+gi_result gi_read_pcx_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image);
+bool gi_is_pcx_memory(const uint8_t* encoded_image, int32_t encoded_image_count);
 
 gi_result gi_read_image_from_file_16(const char* file_name, gi_image_t* image);
 gi_result gi_read_image_from_memory_16(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image);

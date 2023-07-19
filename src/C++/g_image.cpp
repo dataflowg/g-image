@@ -30,6 +30,10 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 	{
 		result = gi_read_qoi_from_file(file_name, image);
 	}
+	else if (gi_is_pcx_file(file_name))
+	{
+		result = gi_read_pcx_from_file(file_name, image);
+	}
 	else
 	{
 		result = gi_read_image_from_file(file_name, image);
@@ -108,6 +112,33 @@ gi_result gi_read_qoi_from_file(const char* file_name, gi_image_t* image)
 	return GI_SUCCESS;
 }
 
+gi_result gi_read_pcx_from_file(const char* file_name, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+
+	image->data = drpcx_load_file(file_name, DRPCX_FALSE, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		return GI_E_GENERIC;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
+	image->bits_per_channel = 8;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+
+	return GI_SUCCESS;
+}
+
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, intptr_t* image_out)
 {
 	gi_result result;
@@ -121,6 +152,10 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 	if (gi_is_qoi_memory(encoded_image, encoded_image_count))
 	{
 		result = gi_read_qoi_from_memory(encoded_image, encoded_image_count, image);
+	}
+	else if (gi_is_pcx_memory(encoded_image, encoded_image_count))
+	{
+		result = gi_read_pcx_from_memory(encoded_image, encoded_image_count, image);
 	}
 	else
 	{
@@ -188,6 +223,33 @@ gi_result gi_read_qoi_from_memory(const uint8_t* encoded_image, int32_t encoded_
 	image->width = desc.width;
 	image->height = desc.height;
 	image->channels = desc.channels;
+	image->bits_per_channel = 8;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_pcx_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+
+	image->data = drpcx_load_memory(encoded_image, encoded_image_count, DRPCX_FALSE, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		return GI_E_GENERIC;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
 	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
@@ -571,6 +633,39 @@ bool gi_is_qoi_memory(const uint8_t* encoded_image, int32_t encoded_image_count)
 
 	int32_t p = 0;
 	return (qoi_read_32(encoded_image, &p) == QOI_MAGIC);
+}
+
+bool gi_is_pcx_file(const char* file_name)
+{
+	FILE *f = stbi__fopen(file_name, "rb");
+	if (f == NULL)
+	{
+		return false;
+	}
+
+	drpcx_header pcx;
+	fread(&pcx, sizeof(pcx), 1, f);
+	fclose(f);
+	f = NULL;
+
+	return gi_is_pcx_memory((uint8_t*)&pcx, sizeof(pcx));
+}
+
+bool gi_is_pcx_memory(const uint8_t* encoded_image, int32_t encoded_image_count)
+{
+	if (encoded_image_count < sizeof(drpcx_header))
+	{
+		return false;
+	}
+
+	drpcx_header* pcx = (drpcx_header*)encoded_image;
+
+	if (pcx->header != 10)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 
