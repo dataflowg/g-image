@@ -93,6 +93,9 @@ unsigned char* compress_for_stbiw(unsigned char *data, int data_len, int *out_le
 
 #include "gif.h"
 
+#define MSF_GIF_IMPL
+#include "msf_gif.h"
+
 #define NANOSVG_IMPLEMENTATION
 #include "nanosvg.h"
 
@@ -203,9 +206,13 @@ extern "C" LV_DLL_EXPORT gi_result rotate_image(const uint8_t* image_data_in, in
 
 extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, uint32_t dither, uint8_t* image_data_out, uint32_t* colors_out);
 
-extern "C" LV_DLL_EXPORT gi_result open_write_gif(const char* file_name, int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr);
-extern "C" LV_DLL_EXPORT gi_result write_gif_frame(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither);
-extern "C" LV_DLL_EXPORT gi_result close_gif(intptr_t writer_ptr);
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_file(const char* file_name, int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr);
+extern "C" LV_DLL_EXPORT gi_result write_gif_frame_file(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither);
+extern "C" LV_DLL_EXPORT gi_result close_gif_file(intptr_t writer_ptr);
+
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_memory(int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr);
+extern "C" LV_DLL_EXPORT gi_result write_gif_frame_memory(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither);
+extern "C" LV_DLL_EXPORT gi_result close_gif_memory(intptr_t writer_ptr, intptr_t* image_data_out, int32_t* image_data_count_out);
 
 gi_result gi_read_image_from_file(const char* file_name, gi_image_t* image);
 gi_result gi_read_qoi_from_file(const char* file_name, gi_image_t* image);
@@ -225,6 +232,7 @@ gi_result gi_read_image_from_memory_16(const uint8_t* encoded_image, int32_t enc
 int32_t gi_write_qoi(const char* file_name, int32_t width, int32_t height, int32_t channels, const uint8_t* image_data);
 int32_t gi_save_qoi_to_memory(int32_t width, int32_t height, int32_t channels, const uint8_t* image_data, save_callback_data_t* callback_data);
 int32_t gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither);
+int32_t gi_save_gif_to_memory(int32_t width, int32_t height, const uint8_t* image_data, save_callback_data_t* callback_data);
 //////////////////////////
 // Ancilliary Functions //
 //////////////////////////
@@ -436,6 +444,21 @@ void *qoi_read_utf8(const char *filename, qoi_desc *desc, int channels)
 	pixels = qoi_decode(data, bytes_read, desc, channels);
 	QOI_FREE(data);
 	return pixels;
+}
+
+drpcx_uint8* drpcx_load_file_utf8(const char* filename, drpcx_bool32 flipped, int* x, int* y, int* internalComponents, int desiredComponents)
+{
+	FILE* pFile = stbi__fopen(filename, "rb");
+
+	if (pFile == NULL)
+	{
+		return NULL;
+	}
+
+	drpcx_uint8* pImageData = drpcx_load(drpcx__on_read_stdio, pFile, flipped, x, y, internalComponents, desiredComponents);
+
+	fclose(pFile);
+	return pImageData;
 }
 
 #endif

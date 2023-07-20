@@ -36,6 +36,7 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Save BMP Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Memory).vi"/>
 			<Item Name="Save BMP Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Path).vi"/>
 			<Item Name="Save BMP Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (UTF-8 Path).vi"/>
+			<Item Name="Save GIF Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save GIF Image (Memory).vi"/>
 			<Item Name="Save GIF Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save GIF Image (Path).vi"/>
 			<Item Name="Save GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save GIF Image (UTF-8 Path).vi"/>
 			<Item Name="Save JPG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save JPG Image (Memory).vi"/>
@@ -60,6 +61,7 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Load SVG From File (Core).vi" Type="VI" URL="../Image IO/Private/Load SVG From File (Core).vi"/>
 			<Item Name="Load SVG From Memory (Core).vi" Type="VI" URL="../Image IO/Private/Load SVG From Memory (Core).vi"/>
 			<Item Name="Save Animated GIF To File (Core).vi" Type="VI" URL="../Image IO/Private/Save Animated GIF To File (Core).vi"/>
+			<Item Name="Save Animated GIF To Memory (Core).vi" Type="VI" URL="../Image IO/Private/Save Animated GIF To Memory (Core).vi"/>
 			<Item Name="Save Image To File (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To File (Core).vim"/>
 			<Item Name="Save Image To Memory (Core).vim" Type="VI" URL="../Image IO/Private/Save Image To Memory (Core).vim"/>
 		</Item>
@@ -117,4 +119,5 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="RGBA To ARGB.vim" Type="VI" URL="../Private/RGBA To ARGB.vim"/>
 		<Item Name="To RGBA.vi" Type="VI" URL="../Private/To RGBA.vi"/>
 	</Item>
+	<Item Name="Save Animated GIF Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (Memory).vi"/>
 </Library>

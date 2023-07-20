@@ -166,6 +166,7 @@
     <ClInclude Include="gif.h" />
     <ClInclude Include="g_image.h" />
     <ClInclude Include="miniz.h" />
+    <ClInclude Include="msf_gif.h" />
     <ClInclude Include="nanosvg.h" />
     <ClInclude Include="nanosvgrast.h" />
     <ClInclude Include="pch.h" />

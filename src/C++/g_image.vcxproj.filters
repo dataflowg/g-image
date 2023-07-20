@@ -54,6 +54,9 @@
     <ClInclude Include="dr_pcx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="msf_gif.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
