@@ -548,7 +548,7 @@ int32_t gi_write_gif(const char* file_name, int32_t width, int32_t height, const
 	}
 
 	msf_gif_alpha_threshold = 127;
-	result |= msf_gif_begin_to_file(&writer, width, height, (MsfGifFileWriteFunc)fwrite, (void*)fp);
+	result |= msf_gif_begin_to_file(&writer, width, height, 1, (MsfGifFileWriteFunc)fwrite, (void*)fp);
 	result |= msf_gif_frame_to_file(&writer, (uint8_t*)image_data, 0, 16, width * 4);
 	result |= msf_gif_end_to_file(&writer);
 	fclose(fp);
@@ -557,7 +557,7 @@ int32_t gi_write_gif(const char* file_name, int32_t width, int32_t height, const
 }
 
 
-extern "C" LV_DLL_EXPORT gi_result open_write_gif_file(const char* file_name, int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr)
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_file(const char* file_name, int32_t width, int32_t height, int32_t depth, int32_t loop_count, intptr_t* writer_ptr)
 {
 	int result = 0;
 
@@ -574,7 +574,7 @@ extern "C" LV_DLL_EXPORT gi_result open_write_gif_file(const char* file_name, in
 	}
 
 	msf_gif_alpha_threshold = 127;
-	result = msf_gif_begin_to_file(writer, width, height, (MsfGifFileWriteFunc)fwrite, (void*)fp);
+	result = msf_gif_begin_to_file(writer, width, height, loop_count, (MsfGifFileWriteFunc)fwrite, (void*)fp);
 
 	if (result == 0)
 	{
@@ -784,7 +784,7 @@ int32_t gi_save_gif_to_memory(int32_t width, int32_t height, const uint8_t* imag
 	MsfGifResult gif_result = { 0 };
 
 	msf_gif_alpha_threshold = 127;
-	msf_gif_begin(&writer, width, height);
+	msf_gif_begin(&writer, width, height, 1);
 	msf_gif_frame(&writer, (uint8_t*)image_data, 0, 16, width * 4);
 	gif_result = msf_gif_end(&writer);
 
@@ -799,7 +799,7 @@ int32_t gi_save_gif_to_memory(int32_t width, int32_t height, const uint8_t* imag
 	return callback_data->image_data_count;
 }
 
-extern "C" LV_DLL_EXPORT gi_result open_write_gif_memory(int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr)
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_memory(int32_t width, int32_t height, int32_t depth, int32_t loop_count, intptr_t* writer_ptr)
 {
 	int result = 0;
 
@@ -810,7 +810,7 @@ extern "C" LV_DLL_EXPORT gi_result open_write_gif_memory(int32_t width, int32_t 
 	}
 
 	msf_gif_alpha_threshold = 127;
-	result = msf_gif_begin(writer, width, height);
+	result = msf_gif_begin(writer, width, height, loop_count);
 
 	if (result == 0)
 	{

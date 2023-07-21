@@ -114,7 +114,7 @@ extern "C" {
  * @param height               Image height in pixels.
  * @return                     Non-zero on success, 0 on error.
  */
-int msf_gif_begin(MsfGifState * handle, int width, int height);
+int msf_gif_begin(MsfGifState * handle, int width, int height, int loopCount);
 
 /**
  * @param pixelData            Pointer to raw framebuffer data. Rows must be contiguous in memory, in RGBA8 format
@@ -171,7 +171,7 @@ extern int msf_gif_bgra_flag;
 //  fclose(fp);
 //If you use a custom file write function, you must take care to return the same values that fwrite() would return.
 //Note that all three functions will potentially write to the file.
-int msf_gif_begin_to_file(MsfGifState * handle, int width, int height, MsfGifFileWriteFunc func, void * filePointer);
+int msf_gif_begin_to_file(MsfGifState * handle, int width, int height, int loopCount, MsfGifFileWriteFunc func, void * filePointer);
 int msf_gif_frame_to_file(MsfGifState * handle, uint8_t * pixelData, int centiSecondsPerFame, int maxBitDepth, int pitchInBytes);
 int msf_gif_end_to_file(MsfGifState * handle); //returns 0 on error and non-zero on success
 
@@ -548,9 +548,10 @@ static void msf_free_gif_state(MsfGifState * handle) {
     handle->listHead = NULL; //this implicitly marks the handle as invalid until the next msf_gif_begin() call
 }
 
-int msf_gif_begin(MsfGifState * handle, int width, int height) { MsfTimeFunc
+int msf_gif_begin(MsfGifState * handle, int width, int height, int loopCount) { MsfTimeFunc
     //NOTE: we cannot stomp the entire struct to zero because we must preserve `customAllocatorContext`.
     MsfCookedFrame empty = {0}; //god I hate MSVC...
+    int actualLoopCount = loopCount > 1 ? loopCount - 1 : 0;
     handle->previousFrame = empty;
     handle->currentFrame = empty;
     handle->width = width;
@@ -576,13 +577,16 @@ int msf_gif_begin(MsfGifState * handle, int width, int height) { MsfTimeFunc
     }
     handle->listTail = handle->listHead;
     handle->listHead->next = NULL;
-    handle->listHead->size = 32;
+    // Only include NETSCAPE extension if playing animation more than once, or infinitely
+    // If extenion is excluded, animation will play once only
+    handle->listHead->size = loopCount == 1 ? 13 : 32;
 
     //NOTE: because __attribute__((__packed__)) is annoyingly compiler-specific, we do this unreadable weirdness
     char headerBytes[33] = "GIF89a\0\0\0\0\x70\0\0" "\x21\xFF\x0BNETSCAPE2.0\x03\x01\0\0\0";
     memcpy(&headerBytes[6], &width, 2);
     memcpy(&headerBytes[8], &height, 2);
-    memcpy(handle->listHead->data, headerBytes, 32);
+    memcpy(&headerBytes[29], &actualLoopCount, 2);
+    memcpy(handle->listHead->data, headerBytes, loopCount == 1 ? 13 : 32);
     return 1;
 }
 
@@ -646,10 +650,10 @@ void msf_gif_free(MsfGifResult result) { MsfTimeFunc
 /// To-file API                                                                                                      ///
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int msf_gif_begin_to_file(MsfGifState * handle, int width, int height, MsfGifFileWriteFunc func, void * filePointer) {
+int msf_gif_begin_to_file(MsfGifState * handle, int width, int height, int loopCount, MsfGifFileWriteFunc func, void * filePointer) {
     handle->fileWriteFunc = func;
     handle->fileWriteData = filePointer;
-    return msf_gif_begin(handle, width, height);
+    return msf_gif_begin(handle, width, height, loopCount);
 }
 
 int msf_gif_frame_to_file(MsfGifState * handle, uint8_t * pixelData, int centiSecondsPerFame, int maxBitDepth, int pitchInBytes) {

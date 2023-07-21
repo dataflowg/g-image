@@ -31,6 +31,7 @@ https://github.com/dataflowg/g-image</Property>
 			<Item Name="Load SVG Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load SVG Image (Memory).vi"/>
 			<Item Name="Load SVG Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load SVG Image (Path).vi"/>
 			<Item Name="Load SVG Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Load SVG Image (UTF-8 Path).vi"/>
+			<Item Name="Save Animated GIF Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (Memory).vi"/>
 			<Item Name="Save Animated GIF Image (Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (Path).vi"/>
 			<Item Name="Save Animated GIF Image (UTF-8 Path).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (UTF-8 Path).vi"/>
 			<Item Name="Save BMP Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save BMP Image (Memory).vi"/>
@@ -91,10 +92,10 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Create Mask By Index.vi" Type="VI" URL="../Image Processing/Create Mask By Index.vi"/>
 		<Item Name="Find Nearest Color.vi" Type="VI" URL="../Image Processing/Find Nearest Color.vi"/>
 		<Item Name="Flip Image.vi" Type="VI" URL="../Image Processing/Flip Image.vi"/>
-		<Item Name="Indexed Color To True Color Image.vi" Type="VI" URL="../Image Processing/Indexed Color To True Color Image.vi"/>
 		<Item Name="Resize Image.vi" Type="VI" URL="../Image Processing/Resize Image.vi"/>
 		<Item Name="Rotate Image.vi" Type="VI" URL="../Image Processing/Rotate Image.vi"/>
-		<Item Name="True Color To Indexed Color Image.vi" Type="VI" URL="../Image Processing/True Color To Indexed Color Image.vi"/>
+		<Item Name="To Indexed Color Image.vi" Type="VI" URL="../Image Processing/To Indexed Color Image.vi"/>
+		<Item Name="To True Color Image.vi" Type="VI" URL="../Image Processing/To True Color Image.vi"/>
 	</Item>
 	<Item Name="Private" Type="Folder">
 		<Property Name="NI.LibItem.Scope" Type="Int">2</Property>
@@ -111,6 +112,7 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="Get Image Data.vi" Type="VI" URL="../Private/Get Image Data.vi"/>
 		<Item Name="Get Row Stride.vi" Type="VI" URL="../Private/Get Row Stride.vi"/>
 		<Item Name="Insert Padding.vi" Type="VI" URL="../Private/Insert Padding.vi"/>
+		<Item Name="Mask Byte Array To Bit Array.vi" Type="VI" URL="../Private/Mask Byte Array To Bit Array.vi"/>
 		<Item Name="Path To UTF-8 String.vi" Type="VI" URL="../Private/Path To UTF-8 String.vi"/>
 		<Item Name="Prepare Image For GIF.vi" Type="VI" URL="../Private/Prepare Image For GIF.vi"/>
 		<Item Name="Remove Padding.vi" Type="VI" URL="../Private/Remove Padding.vi"/>
@@ -119,5 +121,4 @@ https://github.com/dataflowg/g-image</Property>
 		<Item Name="RGBA To ARGB.vim" Type="VI" URL="../Private/RGBA To ARGB.vim"/>
 		<Item Name="To RGBA.vi" Type="VI" URL="../Private/To RGBA.vi"/>
 	</Item>
-	<Item Name="Save Animated GIF Image (Memory).vi" Type="VI" URL="../Image IO/Polymorphic VIs/Save Animated GIF Image (Memory).vi"/>
 </Library>

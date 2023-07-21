@@ -206,11 +206,11 @@ extern "C" LV_DLL_EXPORT gi_result rotate_image(const uint8_t* image_data_in, in
 
 extern "C" LV_DLL_EXPORT gi_result true_color_to_indexed(const uint8_t* image_data_in, int32_t width_in, int32_t height_in, int32_t channels_in, int32_t depth, uint32_t dither, uint8_t* image_data_out, uint32_t* colors_out);
 
-extern "C" LV_DLL_EXPORT gi_result open_write_gif_file(const char* file_name, int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr);
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_file(const char* file_name, int32_t width, int32_t height, int32_t depth, int32_t loop_count, intptr_t* writer_ptr);
 extern "C" LV_DLL_EXPORT gi_result write_gif_frame_file(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither);
 extern "C" LV_DLL_EXPORT gi_result close_gif_file(intptr_t writer_ptr);
 
-extern "C" LV_DLL_EXPORT gi_result open_write_gif_memory(int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr);
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_memory(int32_t width, int32_t height, int32_t depth, int32_t loop_count, intptr_t* writer_ptr);
 extern "C" LV_DLL_EXPORT gi_result write_gif_frame_memory(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither);
 extern "C" LV_DLL_EXPORT gi_result close_gif_memory(intptr_t writer_ptr, intptr_t* image_data_out, int32_t* image_data_count_out);
 
