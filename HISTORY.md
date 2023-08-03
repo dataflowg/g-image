@@ -1,4 +1,18 @@
 # G-Image Release History
+### v0.5.0 - 2023-08-03
+* Support for reading PCX images
+* Save GIF and animated GIF to memory (issue #3)
+* Support GIF and animated GIF transparency (issue #6)
+    * Transparency taken from LabVIEW image mask or alpha channel
+* Set animated GIF loop count (issue #7)
+
+##### Changed VIs
+* _Indexed Color To True Color.vi_ renamed to _To True Color.vi_
+    * VI supports converting 24-bit image + mask input to 32-bit ARGB output
+* _True Color To Indexed Color.vi_ renamed to _To Indexed Color.vi_
+* Removed `Dither` option from _Save GIF Image.vi_ and _Save Animated GIF Image.vi_
+    * Image will always be dithered
+
 ### v0.4.0 - 2023-05-05
 * Support for reading and writing QOI ('Quite OK Image Format') images
     * Lossless 24-bit and 32-bit image type with fast encode + decode

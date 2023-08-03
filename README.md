@@ -21,28 +21,22 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
 </p>
 
 ## <a id="whats-new"></a>What's New?
-* Support for reading and writing QOI ('Quite OK Image Format') images
-    * Lossless 24-bit and 32-bit image type with fast encode + decode
-* Support for loading 16-bit per channel images
-* Fix incorrect error output when saving GIF files
-* Fix incorrect alpha channel when converting certain 8-bit images to 32-bit
-* Fix incorrect default scale when loading SVG from UTF-8 path
-* Misc. VI doc updates
-* Update stb_image.h to v2.28
-
-##### New VIs
-* _Save QOI Image.vi_
-* _Load Image (16-bit).vi_
-* _Convert Image To 8-bit Per Channel.vim_
-* _Convert Image To 16-bit Per Channel.vim_
-* _Create Mask By Index.vi_
+* Support for reading PCX images
+* Save GIF and animated GIF to memory (issue #3)
+* Support GIF and animated GIF transparency (issue #6)
+    * Transparency taken from LabVIEW image mask or alpha channel
+* Set animated GIF loop count (issue #7)
 
 ##### Changed VIs
-* _Resize Image.vi_ is now polymorphic, accepting either width x height or a scale multiplier
+* _Indexed Color To True Color.vi_ renamed to _To True Color.vi_
+    * VI supports converting 24-bit image + mask input to 32-bit ARGB output
+* _True Color To Indexed Color.vi_ renamed to _To Indexed Color.vi_
+* Removed `Dither` option from _Save GIF Image.vi_ and _Save Animated GIF Image.vi_
+    * Image will always be dithered
 
 ## <a id="features"></a>Features
 * Load images from file or from memory in a range of formats, including:
-    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, SVG, PSD, HDR, PIC, PNM, QOI
+    * PNG, JPEG, BMP, GIF, Animated GIF, TGA, SVG, PSD, HDR, PIC, PNM, QOI, PCX
 * Save images to file or to memory in a range of formats, including:
     * PNG, JPEG, BMP, GIF, Animated GIF, TGA, QOI
 * Basic image processing functions:
@@ -52,7 +46,7 @@ A cross-platform LabVIEW library for loading, saving, and processing images.
     * Quantize (True Color to Indexed Color)
 
 ## <a id="installation"></a>Installation
-TBD
+G-Image is published on [vipm.io](https://www.vipm.io/package/dataflow_g_lib_g_image/), and can be installed using VI Package Manager (VIPM). The packages are also available as [github releases](https://github.com/dataflowg/g-image/releases) and can be installed manually using VIPM.
 
 ## <a id="usage"></a>Usage
 See the example VIs in [Examples](src/LabVIEW/G-Image/Examples) to load, save, and process images.
@@ -80,10 +74,11 @@ HDR             | :heavy_check_mark:  | :x:
 PIC             | :heavy_check_mark:  | :x:
 PNM             | :heavy_check_mark:  | :x:
 QOI             | :heavy_check_mark:  | :x:
+PCX             | :heavy_check_mark:¹ | :x:
 
 ¹ *Indexed color images (8-bit and below) are supported, but are converted to 24-bit or 32-bit images. This may change in future updates.*
 
-² *Only paths are supported.*
+² *Only vector paths are supported.*
 
 ³ *32-bit images are unsupported.*
 
@@ -121,5 +116,7 @@ Library | Author | License
 [gif-h](https://github.com/charlietangora/gif-h) | Charlie Tangora | [Public Domain](https://github.com/charlietangora/gif-h/blob/master/gif.h)
 [nanosvg](https://github.com/memononen/nanosvg) | Mikko Mononen | [zlib](https://github.com/memononen/nanosvg/blob/master/LICENSE.txt)
 [qoi](https://github.com/phoboslab/qoi) | Dominic Szablewski | [MIT](https://github.com/phoboslab/qoi/blob/master/LICENSE)
+[dr_pcx](https://github.com/mackron/dr_pcx) | David Reid | [Public Domain](https://github.com/mackron/dr_pcx/blob/master/dr_pcx.h)
+[msf_gif](https://github.com/notnullnotvoid/msf_gif) | notnullnotvoid | [Public Domain](https://github.com/notnullnotvoid/msf_gif/blob/master/msf_gif.h)
 
 ¹ *The linked version is public domain, and is the version used in G-Image. Newer versions of miniz are MIT licensed.*

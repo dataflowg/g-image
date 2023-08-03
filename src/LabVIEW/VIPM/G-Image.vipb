@@ -1,7 +1,7 @@
-<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2023-05-04 16:42:26" Creator="Dataflow_G" Comments="" ID="0e352f7750cb55016daaf4cbb2b69aca">
+<VI_Package_Builder_Settings Version="2020.1" Created_Date="2021-01-03 14:27:19" Modified_Date="2023-08-03 06:23:06" Creator="Dataflow_G" Comments="" ID="0d4940c862667e90459536ee891ab4d3">
   <Library_General_Settings>
     <Package_File_Name>Dataflow_G_lib_G_Image</Package_File_Name>
-    <Library_Version>0.4.0.2</Library_Version>
+    <Library_Version>0.5.0.2</Library_Version>
     <Auto_Increment_Version>false</Auto_Increment_Version>
     <Library_Source_Folder>..</Library_Source_Folder>
     <Library_Output_Folder>.</Library_Output_Folder>
@@ -32,7 +32,7 @@
 
 Features include:
 * Load images from file or from memory in a range of formats, including:
--- PNG, JPEG, BMP, GIF, Animated GIF, TGA, PSD, HDR, PIC, PNM, QOI
+-- PNG, JPEG, BMP, GIF, Animated GIF, TGA, PSD, HDR, PIC, PNM, QOI, PCX
 * Load 8-bit or 16-bit per channel images
 * Save images to file or to memory in a range of formats, including:
 -- PNG, JPEG, BMP, GIF, Animated GIF, TGA, QOI
@@ -44,24 +44,18 @@ Features include:
       <Copyright>Public domain</Copyright>
       <Packager/>
       <URL>https://github.com/dataflowg/g-image</URL>
-      <Release_Notes>* Support for reading and writing QOI ('Quite OK Image Format') images
--- Lossless 24-bit and 32-bit image type with fast encode + decode
-* Support for loading 16-bit per channel images
-* Fix incorrect error output when saving GIF files
-* Fix incorrect alpha channel when converting certain 8-bit images to 32-bit
-* Fix incorrect default scale when loading SVG from UTF-8 path
-* Misc. VI doc updates
-* Update stb_image.h to v2.28
+      <Release_Notes>* Support for reading PCX images
+* Save GIF and animated GIF to memory (issue #3)
+* Support GIF and animated GIF transparency (issue #6)
+-- Transparency taken from LabVIEW image mask or alpha channel
+* Set animated GIF loop count (issue #7)
 
-* NEW VIs
--- Save QOI Image.vi
--- Load Image (16-bit).vi
--- Convert Image To 8-bit Per Channel.vim
--- Convert Image To 16-bit Per Channel.vim
--- Create Mask By Index.vi
-
-* CHANGED VIs
--- Resize Image.vi is now polymorphic, accepting either width x height or a scale multiplier</Release_Notes>
+CHANGED VIs
+* Indexed Color To True Color.vi renamed to To True Color.vi
+-- VI supports converting 24-bit image + mask input to 32-bit ARGB output
+* True Color To Indexed Color.vi renamed to To Indexed Color.vi
+* Removed `Dither` option from Save GIF Image.vi and Save Animated GIF Image.vi
+-- Image will always be dithered</Release_Notes>
     </Description>
     <Destinations>
       <Toolkit_VIs>
@@ -291,7 +285,7 @@ Features include:
         <Path>..\Examples</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>3A39822C404A09D58476E91A3975A4E1</GUID>
+      <GUID>0665916EFA36A5D003F8D5ED06769308</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -466,7 +460,7 @@ Features include:
         <Path>..\G-Image\Image IO\Load Image (16-bit).vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>D5E18A5045E3B84B10D1378B3BCA89D1</GUID>
+      <GUID>9C250F56645742F1E9A6731B4753B721</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -532,34 +526,6 @@ Features include:
       <Items_Data>
         <Type>Item</Type>
         <Sub_Palette_Index>-1</Sub_Palette_Index>
-        <NameSub_Menu_Name>Indexed Color To True Color Image.vi</NameSub_Menu_Name>
-        <Short_Name/>
-        <is_Merge_VI>false</is_Merge_VI>
-        <Position>
-          <Row>2</Row>
-          <Column>1</Column>
-        </Position>
-        <Icon>00000000</Icon>
-        <Path>..\G-Image\Image Processing\Indexed Color To True Color Image.vi</Path>
-        <VI_Title/>
-      </Items_Data>
-      <Items_Data>
-        <Type>Item</Type>
-        <Sub_Palette_Index>-1</Sub_Palette_Index>
-        <NameSub_Menu_Name>True Color To Indexed Color Image.vi</NameSub_Menu_Name>
-        <Short_Name/>
-        <is_Merge_VI>false</is_Merge_VI>
-        <Position>
-          <Row>2</Row>
-          <Column>2</Column>
-        </Position>
-        <Icon>00000000</Icon>
-        <Path>..\G-Image\Image Processing\True Color To Indexed Color Image.vi</Path>
-        <VI_Title/>
-      </Items_Data>
-      <Items_Data>
-        <Type>Item</Type>
-        <Sub_Palette_Index>-1</Sub_Palette_Index>
         <NameSub_Menu_Name>Convert Image To 8-bit Per Channel.vim</NameSub_Menu_Name>
         <Short_Name/>
         <is_Merge_VI>false</is_Merge_VI>
@@ -613,7 +579,35 @@ Features include:
         <Path>..\G-Image\Image Processing\Find Nearest Color.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>7860A456A4AE71B42DF87F2BDEB63A1F</GUID>
+      <Items_Data>
+        <Type>Item</Type>
+        <Sub_Palette_Index>-1</Sub_Palette_Index>
+        <NameSub_Menu_Name>To True Color Image.vi</NameSub_Menu_Name>
+        <Short_Name/>
+        <is_Merge_VI>false</is_Merge_VI>
+        <Position>
+          <Row>2</Row>
+          <Column>1</Column>
+        </Position>
+        <Icon>00000000</Icon>
+        <Path>..\G-Image\Image Processing\To True Color Image.vi</Path>
+        <VI_Title/>
+      </Items_Data>
+      <Items_Data>
+        <Type>Item</Type>
+        <Sub_Palette_Index>-1</Sub_Palette_Index>
+        <NameSub_Menu_Name>To Indexed Color Image.vi</NameSub_Menu_Name>
+        <Short_Name/>
+        <is_Merge_VI>false</is_Merge_VI>
+        <Position>
+          <Row>2</Row>
+          <Column>2</Column>
+        </Position>
+        <Icon>00000000</Icon>
+        <Path>..\G-Image\Image Processing\To Indexed Color Image.vi</Path>
+        <VI_Title/>
+      </Items_Data>
+      <GUID>AEA5B19801FD1CFB49C4890D85878F81</GUID>
     </Functions_Palette_Data>
     <Functions_Palette_Data>
       <Parent_Palette_Index>0</Parent_Palette_Index>
@@ -704,7 +698,7 @@ Features include:
         <Path>..\G-Image\Examples\SVG Scale Example.vi</Path>
         <VI_Title/>
       </Items_Data>
-      <GUID>0D504958D0236AF531591A715F7914D7</GUID>
+      <GUID>1AF0B8C20C62A8839FD7C780D2D6C6D7</GUID>
     </Functions_Palette_Data>
   </Library_Palette_Definition>
 </VI_Package_Builder_Settings>

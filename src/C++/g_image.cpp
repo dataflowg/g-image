@@ -30,6 +30,10 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_file(const char* file_name, i
 	{
 		result = gi_read_qoi_from_file(file_name, image);
 	}
+	else if (gi_is_pcx_file(file_name))
+	{
+		result = gi_read_pcx_from_file(file_name, image);
+	}
 	else
 	{
 		result = gi_read_image_from_file(file_name, image);
@@ -108,6 +112,33 @@ gi_result gi_read_qoi_from_file(const char* file_name, gi_image_t* image)
 	return GI_SUCCESS;
 }
 
+gi_result gi_read_pcx_from_file(const char* file_name, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+
+	image->data = drpcx_load_file_utf8(file_name, DRPCX_FALSE, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		return GI_E_GENERIC;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
+	image->bits_per_channel = 8;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+
+	return GI_SUCCESS;
+}
+
 extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, intptr_t* image_out)
 {
 	gi_result result;
@@ -121,6 +152,10 @@ extern "C" LV_DLL_EXPORT gi_result load_image_from_memory(const uint8_t* encoded
 	if (gi_is_qoi_memory(encoded_image, encoded_image_count))
 	{
 		result = gi_read_qoi_from_memory(encoded_image, encoded_image_count, image);
+	}
+	else if (gi_is_pcx_memory(encoded_image, encoded_image_count))
+	{
+		result = gi_read_pcx_from_memory(encoded_image, encoded_image_count, image);
 	}
 	else
 	{
@@ -188,6 +223,33 @@ gi_result gi_read_qoi_from_memory(const uint8_t* encoded_image, int32_t encoded_
 	image->width = desc.width;
 	image->height = desc.height;
 	image->channels = desc.channels;
+	image->bits_per_channel = 8;
+	image->layers = 1;
+	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
+
+	return GI_SUCCESS;
+}
+
+gi_result gi_read_pcx_from_memory(const uint8_t* encoded_image, int32_t encoded_image_count, gi_image_t* image)
+{
+	if (image == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	int x, y, n;
+
+	image->data = drpcx_load_memory(encoded_image, encoded_image_count, DRPCX_FALSE, &x, &y, &n, 4);
+
+	if (image->data == NULL)
+	{
+		return GI_E_GENERIC;
+	}
+
+	image->data_size = x * y * 4;
+	image->width = x;
+	image->height = y;
+	image->channels = n;
 	image->bits_per_channel = 8;
 	image->layers = 1;
 	image->delays = (int32_t*)calloc(1, sizeof(int32_t));
@@ -476,36 +538,47 @@ int32_t gi_write_qoi(const char* file_name, int32_t width, int32_t height, int32
 
 int32_t gi_write_gif(const char* file_name, int32_t width, int32_t height, const uint8_t* image_data, dither_type_t dither)
 {
-	GifWriter writer = {};
-	bool gif_result = true;
+	int result = 0;
+	MsfGifState writer = {};
 
-	gif_result &= GifBeginUtf8(&writer, file_name, width, height, 0, 8, dither == dither_floyd_steinberg);
-	gif_result &= GifWriteFrame(&writer, image_data, width, height, 0, 8, dither == dither_floyd_steinberg);
-	gif_result &= GifEnd(&writer);
-
-	if (!gif_result)
+	FILE* fp = stbiw__fopen(file_name, "wb");
+	if (fp == NULL)
 	{
-		return 0;
+		return GI_E_FILE;
 	}
 
-	return 1;
+	msf_gif_alpha_threshold = 127;
+	result |= msf_gif_begin_to_file(&writer, width, height, 1, (MsfGifFileWriteFunc)fwrite, (void*)fp);
+	result |= msf_gif_frame_to_file(&writer, (uint8_t*)image_data, 0, 16, width * 4);
+	result |= msf_gif_end_to_file(&writer);
+	fclose(fp);
+
+	return result;
 }
 
 
-extern "C" LV_DLL_EXPORT gi_result open_write_gif(const char* file_name, int32_t width, int32_t height, int32_t depth, intptr_t* writer_ptr)
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_file(const char* file_name, int32_t width, int32_t height, int32_t depth, int32_t loop_count, intptr_t* writer_ptr)
 {
-	bool result;
+	int result = 0;
 
-	GifWriter* writer = (GifWriter*)malloc(sizeof(GifWriter));
+	MsfGifState* writer = (MsfGifState*)malloc(sizeof(MsfGifState));
 	if (writer == NULL)
 	{
 		return GI_E_MEMORY;
 	}
 
-	result = GifBeginUtf8(writer, file_name, width, height, 1, depth);
-
-	if (!result)
+	FILE* fp = stbiw__fopen(file_name, "wb");
+	if (fp == NULL)
 	{
+		return GI_E_FILE;
+	}
+
+	msf_gif_alpha_threshold = 127;
+	result = msf_gif_begin_to_file(writer, width, height, loop_count, (MsfGifFileWriteFunc)fwrite, (void*)fp);
+
+	if (result == 0)
+	{
+		fclose(fp);
 		free(writer);
 		return GI_E_FILE;
 	}
@@ -515,13 +588,13 @@ extern "C" LV_DLL_EXPORT gi_result open_write_gif(const char* file_name, int32_t
 	return GI_SUCCESS;
 }
 
-extern "C" LV_DLL_EXPORT gi_result write_gif_frame(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither)
+extern "C" LV_DLL_EXPORT gi_result write_gif_frame_file(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither)
 {
-	bool result;
+	int result = 0;
 
-	result = GifWriteFrame((GifWriter*)writer_ptr, image_data, width, height, delay, 8, (dither_type_t)dither == dither_floyd_steinberg);
+	result = msf_gif_frame_to_file((MsfGifState*)writer_ptr, (uint8_t*)image_data, delay, 16, width * 4);
 
-	if (!result)
+	if (result == 0)
 	{
 		return GI_E_FILE;
 	}
@@ -529,16 +602,18 @@ extern "C" LV_DLL_EXPORT gi_result write_gif_frame(intptr_t writer_ptr, const ui
 	return GI_SUCCESS;
 }
 
-extern "C" LV_DLL_EXPORT gi_result close_gif(intptr_t writer_ptr)
+extern "C" LV_DLL_EXPORT gi_result close_gif_file(intptr_t writer_ptr)
 {
-	bool result;
-	GifWriter* writer = (GifWriter*)writer_ptr;
+	int result = 0;
+	MsfGifState* writer = (MsfGifState*)writer_ptr;
 
-	result = GifEnd(writer);
+	result = msf_gif_end_to_file(writer);
+	fclose((FILE*)writer->fileWriteData);
+
 	free(writer);
 	writer = NULL;
 
-	if (!result)
+	if (result == 0)
 	{
 		return GI_E_FILE;
 	}
@@ -571,6 +646,39 @@ bool gi_is_qoi_memory(const uint8_t* encoded_image, int32_t encoded_image_count)
 
 	int32_t p = 0;
 	return (qoi_read_32(encoded_image, &p) == QOI_MAGIC);
+}
+
+bool gi_is_pcx_file(const char* file_name)
+{
+	FILE *f = stbi__fopen(file_name, "rb");
+	if (f == NULL)
+	{
+		return false;
+	}
+
+	drpcx_header pcx;
+	fread(&pcx, sizeof(pcx), 1, f);
+	fclose(f);
+	f = NULL;
+
+	return gi_is_pcx_memory((uint8_t*)&pcx, sizeof(pcx));
+}
+
+bool gi_is_pcx_memory(const uint8_t* encoded_image, int32_t encoded_image_count)
+{
+	if (encoded_image_count < sizeof(drpcx_header))
+	{
+		return false;
+	}
+
+	drpcx_header* pcx = (drpcx_header*)encoded_image;
+
+	if (pcx->header != 10)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 
@@ -628,6 +736,7 @@ extern "C" LV_DLL_EXPORT gi_result save_image_to_memory(int32_t format, int32_t 
 							  result = stbi_write_png_to_func(save_callback, &callback_data, width, height, channels, image_data_in, 0); break;
 		case format_save_jpg: result = stbi_write_jpg_to_func(save_callback, &callback_data, width, height, channels, image_data_in, *(int32_t*)option); break;
 		case format_save_bmp: result = stbi_write_bmp_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
+		case format_save_gif: result = gi_save_gif_to_memory(width, height, image_data_in, &callback_data); break;
 		case format_save_tga: stbi_write_tga_with_rle = *(int32_t*)option;
 							  result = stbi_write_tga_to_func(save_callback, &callback_data, width, height, channels, image_data_in); break;
 		case format_save_qoi: result = gi_save_qoi_to_memory(width, height, channels, image_data_in, &callback_data); break;
@@ -666,6 +775,88 @@ int32_t gi_save_qoi_to_memory(int32_t width, int32_t height, int32_t channels, c
 	}
 
 	return callback_data->image_data_count;
+}
+
+int32_t gi_save_gif_to_memory(int32_t width, int32_t height, const uint8_t* image_data, save_callback_data_t* callback_data)
+{
+	int result = 0;
+	MsfGifState writer = { 0 };
+	MsfGifResult gif_result = { 0 };
+
+	msf_gif_alpha_threshold = 127;
+	msf_gif_begin(&writer, width, height, 1);
+	msf_gif_frame(&writer, (uint8_t*)image_data, 0, 16, width * 4);
+	gif_result = msf_gif_end(&writer);
+
+	callback_data->image_data = (uint8_t*)gif_result.data;
+	callback_data->image_data_count = gif_result.dataSize;
+
+	if (callback_data->image_data == NULL)
+	{
+		return 0;
+	}
+
+	return callback_data->image_data_count;
+}
+
+extern "C" LV_DLL_EXPORT gi_result open_write_gif_memory(int32_t width, int32_t height, int32_t depth, int32_t loop_count, intptr_t* writer_ptr)
+{
+	int result = 0;
+
+	MsfGifState* writer = (MsfGifState*)malloc(sizeof(MsfGifState));
+	if (writer == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	msf_gif_alpha_threshold = 127;
+	result = msf_gif_begin(writer, width, height, loop_count);
+
+	if (result == 0)
+	{
+		free(writer);
+		return GI_E_FILE;
+	}
+
+	*writer_ptr = (intptr_t)writer;
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result write_gif_frame_memory(intptr_t writer_ptr, const uint8_t* image_data, int32_t width, int32_t height, int32_t delay, uint32_t dither)
+{
+	int result = 0;
+
+	result = msf_gif_frame((MsfGifState*)writer_ptr, (uint8_t*)image_data, delay, 16, width * 4);
+
+	if (result == 0)
+	{
+		return GI_E_FILE;
+	}
+
+	return GI_SUCCESS;
+}
+
+extern "C" LV_DLL_EXPORT gi_result close_gif_memory(intptr_t writer_ptr, intptr_t* encoded_image, int32_t* encoded_image_count)
+{
+	int result = 0;
+	MsfGifResult gif_result = { 0 };
+	MsfGifState* writer = (MsfGifState*)writer_ptr;
+
+	gif_result = msf_gif_end(writer);
+
+	free(writer);
+	writer = NULL;
+
+	if (gif_result.data == NULL)
+	{
+		return GI_E_MEMORY;
+	}
+
+	*encoded_image = (intptr_t)gif_result.data;
+	*encoded_image_count = gif_result.dataSize;
+
+	return GI_SUCCESS;
 }
 
 extern "C" LV_DLL_EXPORT gi_result free_data(intptr_t data_ptr)
